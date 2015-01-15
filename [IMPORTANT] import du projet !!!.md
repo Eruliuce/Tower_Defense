@@ -13,11 +13,11 @@ Importer le projet sur votre pc :
 
 Pusher vos modifications sur le serveur :
 
-  Lancez Git Bash et éxecutez les commandes suivantes :
-  - git add -A
-  - git commit -a -m "message"
-  - git push origin master
+- Lancez Git Bash et éxecutez les commandes suivantes :
+  * git add -A
+  * git commit -a -m "message"
+  * git push origin master
 
 Pull les modifications :
-  Dans Git Bash : git pull
-  Dans Eclipse (sur le meme workspace que celui où vous avez importé le projet au départ) : F5
+- Dans Git Bash : git pull
+- Dans Eclipse (sur le meme workspace que celui où vous avez importé le projet au départ) : F5
