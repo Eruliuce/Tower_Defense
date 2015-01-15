@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Game extends ApplicationAdapter {
+public class Jeu extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("images\\badlogic.jpg");
 	}
 
 	@Override
