@@ -1,7 +1,9 @@
 Importer le projet sur votre pc :
 
-- Lancez Git Bash et effectuez la commande suivante :
+- Lancez Git Bash et effectuez les commandes suivante :
   git clone https://github.com/Eruliuce/Tower_Defense
+  git config --global user.name "NOM"
+  git config --global user.email mail@mail.com
 
 - lancer Eclipse avec Gradle dans un Workspace en local (surtout PAS dans le dossier du projet). Si vous n'avez pas Gradle, téléchargez-le ici : http://marketplace.eclipse.org/content/gradle-integration-eclipse-44
 
