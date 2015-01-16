@@ -15,10 +15,11 @@ Pusher vos modifications sur le serveur :
 
 - Fermez Eclipse
 - Lancez Git Bash et éxecutez les commandes suivantes :
+  * git pull
   * git add -A
   * git commit -a -m "message"
   * git push origin master
 
 Pull les modifications :
 - Dans Git Bash : git pull
-- Dans Eclipse (sur le meme workspace que celui où vous avez importé le projet au départ) : F5
+- Dans Eclipse (sur le meme workspace que celui où vous avez importé le projet au départ) : F5 sur src et sur chacun des dossiers à update.
