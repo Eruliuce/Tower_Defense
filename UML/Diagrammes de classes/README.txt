@@ -1,1 +1,0 @@
-Diagrammes de classes du projet.
