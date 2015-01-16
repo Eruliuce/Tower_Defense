@@ -13,6 +13,7 @@ Importer le projet sur votre pc :
 
 Pusher vos modifications sur le serveur :
 
+- Fermez Eclipse
 - Lancez Git Bash et éxecutez les commandes suivantes :
   * git add -A
   * git commit -a -m "message"
