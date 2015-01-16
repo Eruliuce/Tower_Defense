@@ -21,5 +21,6 @@ Pusher vos modifications sur le serveur :
   * git push origin master
 
 Pull les modifications :
+- Fermez Eclipse
 - Dans Git Bash : git pull
 - Dans Eclipse (sur le meme workspace que celui où vous avez importé le projet au départ) : F5 sur src et sur chacun des dossiers à update.
