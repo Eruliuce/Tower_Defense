@@ -1,19 +1,11 @@
 package Outils;
 
-import GestionChemin;
-import ModeleCase;
-import effetDeplacementMonstreAlgo;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import terrain2.CaseAlgo;
-import terrain2.CaseNonTrouveeException;
-import terrain2.TerrainAlgo;
-
+import terrain.TerrainAlgo;
+import exceptions.CaseNonTrouveeException;
 
 
 public class GestionCheminDijkstra implements GestionChemin{
@@ -33,43 +25,32 @@ public class GestionCheminDijkstra implements GestionChemin{
 		}
 	}
 	@Override
-	public Collection<CaseAlgo> chemin() throws CaseNonTrouveeException {
+	public Collection<Integer> chemin() throws CaseNonTrouveeException {
 		
 		lstCases.set(numCaseDepart,new ModeleCase(0,true));
-		int caseActuelle = numCaseDepart;
-		while(caseActuelle!=numCaseArrivee && caseActuelle != -1){
-			Collection<Integer> voisinsActuels = terrain.voisinsTraversables(caseActuelle);
+		int numCaseActuelle = numCaseDepart;
+		while(numCaseActuelle!=numCaseArrivee && numCaseActuelle != -1){
+			Collection<Integer> voisinsActuels = terrain.voisinsTraversables(numCaseActuelle);
 			for(Integer voisin : voisinsActuels){
-				int nouvDistance = lstCases.get(caseActuelle).distance + terrain.caseNum(voisin).cout();
+				int nouvDistance = lstCases.get(numCaseActuelle).distance + terrain.caseNum(voisin).cout();
 				if((lstCases.get(voisin).distance) > nouvDistance){
 					//à vérifier
 					ModeleCase modifCase = lstCases.get(voisin);
 					modifCase.distance = nouvDistance;
-					modifCase.indCasePrec = caseActuelle;
+					modifCase.indCasePrec = numCaseActuelle;
 				}
 			}
-			ModeleCase modifCase = lstCases.get(caseActuelle);
+			ModeleCase modifCase = lstCases.get(numCaseActuelle);
 			modifCase.parcouru = true;
-			caseActuelle = getIndexOfMin(lstCases);
+			numCaseActuelle = getIndexOfMin(lstCases);
 		}
 		Collection<Integer> chemin = new LinkedList<Integer>();
-		chemin.add(lstCases.get(numCaseArrivee))
+		numCaseActuelle = numCaseArrivee;
 		
-		return chemin;
-	}
-	
-	private int numCase(CaseAlgo caseNumerotee) throws CaseNonTrouveeException{
-		return terrain.numCase(caseNumerotee);
-	}
-	
-	private int max(List<ModeleCase> lstCase){
-		int max = Integer.MIN_VALUE;
-		for(ModeleCase mCase : lstCase){
-			if(mCase.distance>max){
-				max = mCase.distance;
-			}
+		while(numCaseActuelle != numCaseDepart){
+			chemin.add((Integer)numCaseActuelle);
 		}
-		return max;
+		return chemin;
 	}
 	
 	private int getIndexOfMin(List<ModeleCase> data) {

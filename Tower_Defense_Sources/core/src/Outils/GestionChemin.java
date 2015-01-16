@@ -6,5 +6,5 @@ import exceptions.CaseNonTrouveeException;
 
 
 public interface GestionChemin{
-	public Collection<CaseAlgo> chemin() throws CaseNonTrouveeException;
+	public Collection<Integer> chemin() throws CaseNonTrouveeException;
 }
