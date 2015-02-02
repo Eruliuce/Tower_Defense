@@ -1,6 +1,9 @@
 package terrain;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
+import java.util.List;
 
 
 public class Terrain implements Iterrain, TerrainAlgo {
@@ -112,77 +115,91 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 
 
-	public Collection<Integer> voisinsTraversables( int ligne,int colonne) {
-		 ArrayList<Integer> voisines = null;
+	public Collection<Integer> voisinsTraversables( int numCaseAlgo) {
+		Hashtable<String,Integer> positionCases = new Hashtable<String,Integer>();
+		positionCases.put("CaseEnHaut",1);
+		positionCases.put("CaseAGauche",2);
+		positionCases.put("CaseADroite",3);
+		positionCases.put("CaseEnBas",4);
+		int x = abscisse(numCaseAlgo);
+		int y = ordonnee(numCaseAlgo);
+		List<Integer> voisines = new ArrayList<Integer>();
+		voisines.add(numCaseAlgo(x, y-1));
+		voisines.add(numCaseAlgo(x-1, y));
+		voisines.add(numCaseAlgo(x+1, y));
+		voisines.add(numCaseAlgo(x, y+1));
 	// tester si c'est transversable boolean par ex et retourner null si c le cas
 	// modifier peut etre comment je rempli voisines j'ai peut etre mis * largeur a la place de hauteur vue que tu ne voulé pas de coordonnées simple	 
 		 
-		 if ( !getCase(ligne,colonne).traversable) return null;// comportement a définir
-		 
-		 
-		 if(ligne==0){
-		if (colonne==0) {voisines.add(ligne*largeur+colonne+1); 
-					voisines.add((ligne+1)*largeur+colonne);
-					
+//		 if ( !getCase(ligne,colonne).traversable) return null;// comportement a définir
+//		 
+//		 
+//		 if(ligne==0){
+//		if (colonne==0) {voisines.add(ligne*largeur+colonne+1); 
+//					voisines.add((ligne+1)*largeur+colonne);
+//					
+//		
+//		}
+//		else if(colonne<largeur-1) {
+//			voisines.add(ligne*largeur+colonne+1);
+//			voisines.add((ligne+1)*largeur+colonne);   
+//			voisines.add(ligne*largeur+(colonne-1));
+//			}
+//			else {
+//				voisines.add((ligne+1)*largeur+colonne);   
+//				voisines.add(ligne*largeur+(colonne-1));	
+//			}
+//		
+//		}else if(ligne==hauteur-1){
+//			if(colonne==0){
+//				voisines.add(ligne*largeur+colonne+1); 
+//				voisines.add((ligne-1)*largeur+colonne);	
+//			}
+//			
+//			else if(colonne<largeur-1){
+//				voisines.add(ligne*largeur+colonne+1);
+//				voisines.add((ligne-1)*largeur+colonne);   
+//				voisines.add(ligne*largeur+(colonne-1));
+//				
+//			} else { 
+//				
+//				voisines.add((ligne-1)*largeur+colonne);   
+//				voisines.add(ligne*largeur+(colonne-1));
+//				
+//			}
+//			
+//			
+//		} else if(colonne==0 && ligne<hauteur-1 && ligne>0){
+//			
+//			voisines.add(ligne+1*largeur+colonne);
+//			voisines.add((ligne)*largeur+colonne+1);   
+//			voisines.add(ligne-1*largeur+(colonne));
+//			
+//			
+//		}else if(colonne==largeur-1 && ligne<hauteur-1 && ligne>0){
+//			
+//			voisines.add(ligne+1*largeur+colonne);
+//			voisines.add((ligne)*largeur+colonne-1);   
+//			voisines.add(ligne-1*largeur+(colonne));
+//			
+//			
+//		}else {
+//			
+//			
+//			voisines.add(ligne+1*largeur+colonne);
+//			voisines.add((ligne-1)*largeur+colonne);   
+//			voisines.add(ligne*largeur+(colonne+1));
+//			voisines.add(ligne*largeur+(colonne-1));
+//			
+//			
+//		}
 		
-		}
-		else if(colonne<largeur-1) {
-			voisines.add(ligne*largeur+colonne+1);
-			voisines.add((ligne+1)*largeur+colonne);   
-			voisines.add(ligne*largeur+(colonne-1));
-			}
-			else {
-				voisines.add((ligne+1)*largeur+colonne);   
-				voisines.add(ligne*largeur+(colonne-1));	
-			}
-		
-		}else if(ligne==hauteur-1){
-			if(colonne==0){
-				voisines.add(ligne*largeur+colonne+1); 
-				voisines.add((ligne-1)*largeur+colonne);	
-			}
-			
-			else if(colonne<largeur-1){
-				voisines.add(ligne*largeur+colonne+1);
-				voisines.add((ligne-1)*largeur+colonne);   
-				voisines.add(ligne*largeur+(colonne-1));
-				
-			} else { 
-				
-				voisines.add((ligne-1)*largeur+colonne);   
-				voisines.add(ligne*largeur+(colonne-1));
-				
-			}
-			
-			
-		} else if(colonne==0 && ligne<hauteur-1 && ligne>0){
-			
-			voisines.add(ligne+1*largeur+colonne);
-			voisines.add((ligne)*largeur+colonne+1);   
-			voisines.add(ligne-1*largeur+(colonne));
-			
-			
-		}else if(colonne==largeur-1 && ligne<hauteur-1 && ligne>0){
-			
-			voisines.add(ligne+1*largeur+colonne);
-			voisines.add((ligne)*largeur+colonne-1);   
-			voisines.add(ligne-1*largeur+(colonne));
-			
-			
-		}else {
-			
-			
-			voisines.add(ligne+1*largeur+colonne);
-			voisines.add((ligne-1)*largeur+colonne);   
-			voisines.add(ligne*largeur+(colonne+1));
-			voisines.add(ligne*largeur+(colonne-1));
-			
-			
-		}
-		
+		if(y==0){voisines.remove(voisines.get(positionCases.get("CaseEnHaut")));}
+		if(x==0){voisines.remove(voisines.get(positionCases.get("CaseAGauche")));}
+		if(x==largeur-1){voisines.remove(voisines.get(positionCases.get("CaseADroite")));}
+		if(y==hauteur-1){voisines.remove(voisines.get(positionCases.get("CaseEnBas")));}
 		 
-		 
-		 
+		//A faire : enlever les cases nontraversables et vérifier que l'ordre de la liste ne change pas quand on supprime un élèment. 
 		
 	
 		 
@@ -190,7 +207,18 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 		return voisines;
 	}
+	
+	public int numCaseAlgo(int abscisse, int ordonnee){
+		return abscisse * largeur + ordonnee;
+	}
+	
+	public int abscisse(int numCaseAlgo){
+		return numCaseAlgo % largeur;
+	}
 
+	public int ordonnee(int numCaseAlgo){
+		return numCaseAlgo / hauteur;
+	}
 	
 	public CaseAlgo caseNum(int indexOfMin) {
 	

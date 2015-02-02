@@ -2,14 +2,19 @@ package terrain;
 import java.util.ArrayList;
 public class Case implements CaseAlgo{
 
-private Coordonnees<Float,Float> position;	
+private Coordonnees<Integer,Integer> position;	
 
 boolean traversable=true;
 
-public Case (float x,float y){
-	position=new Coordonnees<Float,Float>(x,y);
+public Case (int x,int y){
+	position=new Coordonnees<Integer,Integer>(x,y);
     	
 }
+
+public Case(Coordonnees<Integer,Integer> c){
+	position = c;
+}
+
 public Coordonnees getpos(){
 	
 	return position;

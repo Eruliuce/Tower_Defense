@@ -12,7 +12,7 @@ public interface TerrainAlgo {
 
 	public int numCase(CaseAlgo caseQuelconque) throws CaseNonTrouveeException;
 
-	public Collection<Integer> voisinsTraversables(int i, int j );
+	public Collection<Integer> voisinsTraversables(int numCase);
 
 	public CaseAlgo caseNum(int indexOfMin);
 }
