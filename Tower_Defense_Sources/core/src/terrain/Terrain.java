@@ -194,10 +194,10 @@ public class Terrain implements Iterrain, TerrainAlgo {
 //			
 //		}
 		
-		if(y==0){voisines.remove(voisines.get(positionCases.get("CaseEnHaut")));}
-		if(x==0){voisines.remove(voisines.get(positionCases.get("CaseAGauche")));}
-		if(x==largeur-1){voisines.remove(voisines.get(positionCases.get("CaseADroite")));}
-		if(y==hauteur-1){voisines.remove(voisines.get(positionCases.get("CaseEnBas")));}
+		if(y!=0 && getCase(y-1, x).gettraversable()){voisines.add(numCaseAlgo(x-1, y));}
+		if(x!=0 && getCase(y, x-1).gettraversable()){voisines.add(numCaseAlgo(x, y-1));}
+		if(x!=largeur-1){voisines.remove(voisines.get(positionCases.get("CaseADroite")));}
+		if(y!=hauteur-1){voisines.remove(voisines.get(positionCases.get("CaseEnBas")));}
 		 
 		//A faire : enlever les cases nontraversables et vérifier que l'ordre de la liste ne change pas quand on supprime un élèment. 
 		
