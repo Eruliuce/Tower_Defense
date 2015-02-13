@@ -2,8 +2,10 @@ package Outils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
 import terrain.TerrainAlgo;
 import exceptions.CaseNonTrouveeException;
 
@@ -27,9 +29,9 @@ public class GestionCheminDijkstra implements GestionChemin{
 	@Override
 	public Collection<Integer> chemin() throws CaseNonTrouveeException {
 		
-		lstCases.set(numCaseDepart,new ModeleCase(0,true));
+		lstCases.set(numCaseDepart,new ModeleCase(0,false));
 		int numCaseActuelle = numCaseDepart;
-		while(numCaseActuelle!=numCaseArrivee && numCaseActuelle != -1){
+		while((numCaseActuelle != -1) && (lstCases.get(numCaseActuelle).distance != Integer.MAX_VALUE)){
 			System.out.println("entrée while");
 			Collection<Integer> voisinsActuels = terrain.voisinsTraversables(numCaseActuelle);
 			for(Integer voisin : voisinsActuels){
@@ -42,8 +44,8 @@ public class GestionCheminDijkstra implements GestionChemin{
 					modifCase.indCasePrec = numCaseActuelle;
 				}
 			}
-			ModeleCase modifCase = lstCases.get(numCaseActuelle);
-			modifCase.parcouru = true;
+			ModeleCase caseActuelle = lstCases.get(numCaseActuelle);
+			caseActuelle.parcouru = true;
 			numCaseActuelle = getIndexOfMin(lstCases);
 		}
 		Collection<Integer> chemin = new LinkedList<Integer>();
@@ -55,6 +57,15 @@ public class GestionCheminDijkstra implements GestionChemin{
 		return chemin;
 	}
 	
+//	private boolean caseRestantes(List<ModeleCase> lstCases) {
+//		boolean casesRestantes = false;
+//		Iterator<ModeleCase> iterator = lstCases.iterator();
+//		while(iterator.hasNext() && !casesRestantes){
+//			ModeleCase caseM = iterator.next();
+//			casesRestantes = casesRestantes || (!caseM.parcouru && caseM.distance != Integer.MAX_VALUE);
+//		}
+//		return casesRestantes;
+	}
 	private int getIndexOfMin(List<ModeleCase> data) {
 	    int index = -1;
 	    int min = Integer.MAX_VALUE;
