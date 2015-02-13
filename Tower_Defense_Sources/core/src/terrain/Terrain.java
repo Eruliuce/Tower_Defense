@@ -12,11 +12,13 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private Array2d <Case> lstCase;
 	private int hauteur;
 	private int largeur;
+	private int numSpawn;
+	private int numBase;
 	
 	private void initTerrain(int hauteur,int largeur){
 		
 		for (int i=0;i<hauteur;i++){
-			lstCase.addRow();
+			lstCase.addRow(largeur);
 			
 			
 			for (int j=0;j<largeur;j++){
@@ -30,13 +32,18 @@ public class Terrain implements Iterrain, TerrainAlgo {
 		}
 		
 	} 
-	
-	public Terrain(int hauteur ,int largeur) {
-	
-		lstCase=new Array2d<Case>();
+	/**
+	 * Création d'un terrain
+	 * @param hauteur (vertical)
+	 * @param largeur (horizontal)
+	 */
+	public Terrain(int hauteur ,int largeur, int numSpawn, int numBase) {
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+		lstCase=new Array2d<Case>(hauteur);
 		initTerrain(largeur,hauteur);
- 
-		
+		this.numBase = numBase;
+		this.numSpawn = numSpawn;
 	}
 	
 	
@@ -71,66 +78,67 @@ public class Terrain implements Iterrain, TerrainAlgo {
 //	lstCase.add(0, 0, new Case(0,0));
 //	lstCase.addRow();
 //	lstCase.add(1,0, new Case(0,0));
-		Terrain t= new Terrain(4,4);
+		Terrain t= new Terrain(4,4,0,0);
 		
 		
 		
 	}
 
 	
-	public CaseAlgo getBase() {
+	public int getNumBase() {
 
-		return null;
+		return numBase;
 	}
 
 	
-	public CaseAlgo getSpawn() {
+	public int getNumSpawn() {
 	
-		return null;
+		return numSpawn;
 	}
 
 	
 	public int nbCases() {
 
-		return 0;
+		return largeur*hauteur;
 	}
 
 	
-	public int numCase(CaseAlgo caseQuelconque) throws CaseNonTrouveeException {
-		Integer num = null;
-		int i = 0;
-		boolean caseTrouvee = false;
-		while(i<largeur && !caseTrouvee){
-			int j =0;
-			while(j<hauteur && !caseTrouvee){
-				if(caseTrouvee = caseQuelconque.equals(lstCase.get(i, j)));
-				num = largeur*i+j;
-			}
-		}
-		if(num == null){
-			CaseNonTrouveeException e = new CaseNonTrouveeException();
-			throw e;
-		}
-		return (int)num;
-	}
+//	public int numCase(CaseAlgo caseQuelconque) throws CaseNonTrouveeException {
+//		Integer num = null;
+//		int i = 0;
+//		boolean caseTrouvee = false;
+//		while(i<largeur && !caseTrouvee){
+//			int j =0;
+//			while(j<hauteur && !caseTrouvee){
+//				if(caseTrouvee = caseQuelconque.equals(lstCase.get(i, j)));
+//				num = largeur*i+j;
+//			}
+//		}
+//		if(num == null){
+//			CaseNonTrouveeException e = new CaseNonTrouveeException();
+//			throw e;
+//		}
+//		return (int)num;
+//	} //obsolete
 
 
 	public Collection<Integer> voisinsTraversables( int numCaseAlgo) {
-		Hashtable<String,Integer> positionCases = new Hashtable<String,Integer>();
-		positionCases.put("CaseEnHaut",1);
-		positionCases.put("CaseAGauche",2);
-		positionCases.put("CaseADroite",3);
-		positionCases.put("CaseEnBas",4);
+//		Hashtable<String,Integer> positionCases = new Hashtable<String,Integer>();
+//		positionCases.put("CaseEnHaut",1);
+//		positionCases.put("CaseAGauche",2);
+//		positionCases.put("CaseADroite",3);
+//		positionCases.put("CaseEnBas",4);
 		int x = abscisse(numCaseAlgo);
 		int y = ordonnee(numCaseAlgo);
-		List<Integer> voisines = new ArrayList<Integer>();
-		voisines.add(numCaseAlgo(x, y-1));
-		voisines.add(numCaseAlgo(x-1, y));
-		voisines.add(numCaseAlgo(x+1, y));
-		voisines.add(numCaseAlgo(x, y+1));
+		Collection<Integer> voisines = new ArrayList<Integer>();
+//		voisines.add(numCaseAlgo(x, y-1));
+//		voisines.add(numCaseAlgo(x-1, y));
+//		voisines.add(numCaseAlgo(x+1, y));
+//		voisines.add(numCaseAlgo(x, y+1));
 	// tester si c'est transversable boolean par ex et retourner null si c le cas
 	// modifier peut etre comment je rempli voisines j'ai peut etre mis * largeur a la place de hauteur vue que tu ne voulé pas de coordonnées simple	 
-		 
+//		 int colonne = x;
+//		 int ligne = y;
 //		 if ( !getCase(ligne,colonne).traversable) return null;// comportement a définir
 //		 
 //		 
@@ -194,12 +202,10 @@ public class Terrain implements Iterrain, TerrainAlgo {
 //			
 //		}
 		
-		if(y!=0 && getCase(y-1, x).gettraversable()){voisines.add(numCaseAlgo(x-1, y));}
-		if(x!=0 && getCase(y, x-1).gettraversable()){voisines.add(numCaseAlgo(x, y-1));}
-		if(x!=largeur-1){voisines.remove(voisines.get(positionCases.get("CaseADroite")));}
-		if(y!=hauteur-1){voisines.remove(voisines.get(positionCases.get("CaseEnBas")));}
-		 
-		//A faire : enlever les cases nontraversables et vérifier que l'ordre de la liste ne change pas quand on supprime un élèment. 
+		if(y!=0 && getCase(y-1, x).gettraversable()){voisines.add(numCaseAlgo(x, y-1));}
+		if(x!=0 && getCase(y, x-1).gettraversable()){voisines.add(numCaseAlgo(x-1, y));}
+		if(x!=largeur-1 && getCase(y, x+1).gettraversable()){voisines.add(numCaseAlgo(x+1, y));}
+		if(y!=hauteur-1 && getCase(y+1, x).gettraversable()){voisines.add(numCaseAlgo(x, y+1));}
 		
 	
 		 
@@ -209,7 +215,7 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 	
 	public int numCaseAlgo(int abscisse, int ordonnee){
-		return abscisse * largeur + ordonnee;
+		return ordonnee * largeur + abscisse;
 	}
 	
 	public int abscisse(int numCaseAlgo){
@@ -217,12 +223,11 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 
 	public int ordonnee(int numCaseAlgo){
-		return numCaseAlgo / hauteur;
+		return numCaseAlgo / largeur;
 	}
 	
-	public CaseAlgo caseNum(int indexOfMin) {
-	
-		return null;
+	public int coutCaseNum(int indexOfMin) {
+		return getCase(ordonnee(indexOfMin), abscisse(indexOfMin)).cout();
 	}
 
 	

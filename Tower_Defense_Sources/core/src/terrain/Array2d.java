@@ -5,9 +5,12 @@ import java.util.ArrayList;
 
 public class Array2d<T> {
     private ArrayList<ArrayList <T>> datas;
-     
-    public Array2d() {
-      datas = new ArrayList<ArrayList <T>>();
+     /**
+      * 
+      * @param hauteur (nbLigne)
+      */
+    public Array2d(int hauteur) {
+      datas = new ArrayList<ArrayList <T>>(hauteur);
       
     }
     public T get(int row, int col) {
@@ -18,8 +21,8 @@ public class Array2d<T> {
       datas.add(new ArrayList<T>());
     }
     
-    public void addRow(int row) {
-      datas.add(row, new ArrayList<T>());
+    public void addRow(int tailleRow) {
+      datas.add(new ArrayList<T>(tailleRow));
     }
     public void add(T o) {
       datas.get(datas.size() - 1).add(o);
