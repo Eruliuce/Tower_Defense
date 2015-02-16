@@ -65,7 +65,7 @@ public class GestionCheminDijkstra implements GestionChemin{
 //			casesRestantes = casesRestantes || (!caseM.parcouru && caseM.distance != Integer.MAX_VALUE);
 //		}
 //		return casesRestantes;
-	}
+//	}
 	private int getIndexOfMin(List<ModeleCase> data) {
 	    int index = -1;
 	    int min = Integer.MAX_VALUE;

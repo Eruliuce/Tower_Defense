@@ -229,7 +229,12 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	public int coutCaseNum(int indexOfMin) {
 		return getCase(ordonnee(indexOfMin), abscisse(indexOfMin)).cout();
 	}
-
+	/**
+	 * A faire : pour toutes les cases du chemin, met à jour les cases précédentes et suivantes
+	 */
+	public void majCasesChemin(){
+		
+	}
 	
 
 }
