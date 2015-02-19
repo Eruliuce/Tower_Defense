@@ -3,6 +3,8 @@ package Tourelle;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import Outils.LecteurFichiers;
+
 public class ModeleTourelle implements I_Modele_Tourelle{
 	private int cout;
 	private float vitesseAttaque;
@@ -11,7 +13,12 @@ public class ModeleTourelle implements I_Modele_Tourelle{
 	private ArrayList<I_Modele_Tourelle> sesAmeliorations;
 	
 	public ModeleTourelle(String nomFicConf) {
-		// TODO Auto-generated constructor stub
+		this.cout = LecteurFichiers.getInt(nomFicConf, "Prix");
+		this.vitesseAttaque = LecteurFichiers.getFloat(nomFicConf, "Vitesse-d-attaque");
+		this.degat = LecteurFichiers.getInt(nomFicConf, "Dégat");
+		this.zone = LecteurFichiers.getFloat(nomFicConf, "Zone");
+		
+		//manque le truc d'arnaud
 	}
 	
 	@Override

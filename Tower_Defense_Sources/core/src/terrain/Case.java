@@ -1,7 +1,7 @@
 package terrain;
 
-import terrain2.CaseAlgo;
-import terrain2.Coordonnees;
+//import terrain2.CaseAlgo;
+//import terrain2.Coordonnees;
 
 
 public class Case implements CaseAlgo{
