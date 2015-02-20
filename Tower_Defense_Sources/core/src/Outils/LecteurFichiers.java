@@ -44,18 +44,16 @@ public class LecteurFichiers
 		
 	public static int getInt(String file, String stat)
 	{
-		int v = 0;
+		int v = -1;
 		try
 		{
 			BufferedReader buff = new BufferedReader(new FileReader(file));
-			 
 			try
 			{
 				String line;
 				boolean trouve = false;
-				while ((line = buff.readLine()) != null && trouve)
+				while ((line = buff.readLine()) != null && !trouve)
 				{
-					System.err.println(line);
 					if(line.contains(stat))
 					{
 						v = extractInt(line, stat);
@@ -86,9 +84,8 @@ public class LecteurFichiers
 			{
 				String line;
 				boolean trouve = false;
-				while ((line = buff.readLine()) != null && trouve)
+				while ((line = buff.readLine()) != null && !trouve)
 				{
-					System.err.println(line);
 					if(line.contains(stat))
 					{
 						v = extractFloat(line, stat);
@@ -119,9 +116,8 @@ public class LecteurFichiers
 			{
 				String line;
 				boolean trouve = false;
-				while ((line = buff.readLine()) != null && trouve)
+				while ((line = buff.readLine()) != null && !trouve)
 				{
-					System.err.println(line);
 					if(line.contains(stat))
 					{
 						valRet = extractString(line, stat);
@@ -198,5 +194,10 @@ public class LecteurFichiers
 			System.exit(-1);
 		}
 		return liste;
+	}
+	
+	public static void main(String args[])
+	{
+		LecteurFichiers.getInt("..\\desktop\\FichiersConf\\Constantes.conf", "vieBaseJoueur");
 	}
 }
