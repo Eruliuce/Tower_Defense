@@ -1,6 +1,6 @@
 package terrain;
 
-import terrain2.Coordonnees;
+import terrain.Coordonnees;
 
 
 public interface Iterrain {

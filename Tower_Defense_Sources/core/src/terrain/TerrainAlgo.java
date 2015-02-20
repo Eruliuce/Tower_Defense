@@ -1,20 +1,18 @@
 package terrain;
 import java.util.Collection;
 
-import exceptions.CaseNonTrouveeException;
-
 
 public interface TerrainAlgo {
 
-	public CaseAlgo getBase();
+	public int getNumBase();
 
-	public CaseAlgo getSpawn();
+	public int getNumSpawn();
 	
 	public int nbCases();
 
-	public int numCase(CaseAlgo caseQuelconque) throws CaseNonTrouveeException;
+	//public int numCase(CaseAlgo caseQuelconque) throws CaseNonTrouveeException;
 
-	public Collection<Integer> voisinsTraversables(int caseActuelle);
+	public Collection<Integer> voisinsTraversables(int numCase);
 
-	public CaseAlgo caseNum(int indexOfMin);
+	public int coutCaseNum(int indexOfMin);
 }

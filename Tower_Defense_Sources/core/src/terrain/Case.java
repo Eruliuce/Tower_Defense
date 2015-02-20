@@ -1,28 +1,152 @@
 package terrain;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
+<<<<<<< HEAD
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
 
 
+=======
+import Tourelle.Tourelle;
+import monstres.Monstre;
+>>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
 public class Case implements CaseAlgo{
 
-public Coordonnees<Float,Float> position;	
+private Coordonnees<Integer,Integer> position;	
+private Collection<Monstre> sesMonstres;
+private boolean traversable=true;
+private Case caseCheminSuivante;
+private Case caseCheminPrecedente;
+private Terrain sonTerrain;
+public static final int TAILLECASE = 32;
 
+	{
+		sesMonstres = new LinkedList<Monstre>();
+	}
+public Case (int x,int y){
+	position=new Coordonnees<Integer,Integer>(x,y);
+    	
+}
+/**
+ * ajoute un monstre à la liste des monstres présents sur la case
+ * @param monstre : le monstre à ajouter
+ * @return booleen : True si l'ajout s'est fait
+ * @author BlackNichols
+ */
+public boolean ajoutMonstre(Monstre monstre){
+	return sesMonstres.add(monstre);
+}
+/**
+ * retire un monstre à la liste des monstres présents sur la case
+ * @param monstre : le monstre à retirer
+ * @return booleen : True si le retrait s'est fait
+ * @author BlackNichols
+ */
+public boolean retirerMonstre(Monstre monstre){
+	return sesMonstres.remove(monstre);
+}
 
-public Case (float x,float y){
-	position=new Coordonnees<Float,Float>(x,y);
+public Case(Coordonnees<Integer,Integer> c){
+	position = c;
+}
+
+public Coordonnees<Integer,Integer> getpos(){
 	
-	//Casevoisine[][]=
-	
+	return position;
 }
 
 
-@Override
+
+public boolean gettraversable(){
+	return traversable;
+	 
+}
+ public void settraversable(boolean t){
+	traversable=t; 
+	 
+ }
+
 public int cout() {
 	return 1;
 }	
+/**
+ * Cherche le monstre attaquable par la tour le plus proche de l'arrivée
+ * @param tour
+ * @return monstre : le monstre qui sera ciblé par la tour
+ * @author BlackNichols
+ */
+public Monstre monstreACibler(Tourelle tour){
+	int ymax = 0, xmax = 0, modifX = 0, modifY = 0;
+	if(caseCheminPrecedente != null){
+		if(position.getx()>caseCheminPrecedente.position.getx()){
+			xmax = 0;
+			modifX = 1;
+			System.out.println("1,1");
+		}else if(position.getx()<caseCheminPrecedente.position.getx()){
+			xmax = Integer.MAX_VALUE;
+			modifX = -1;
+			System.out.println("1,2");
+		}else if(position.gety()>caseCheminPrecedente.position.gety()){
+			ymax = 0;
+			modifY = 1;
+			System.out.println("1,3");
+		}else if(position.gety()<caseCheminPrecedente.position.gety()){
+			ymax = Integer.MAX_VALUE;
+			modifY = -1;
+			System.out.println("1,4");
+		}
+	}
+	if(caseCheminSuivante != null){
+		if(position.getx()<caseCheminSuivante.position.getx()){
+			xmax = 0;
+			modifX = 1;
+			System.out.println("2,1");
+		}else if(position.getx()>caseCheminSuivante.position.getx()){
+			xmax = Integer.MAX_VALUE;
+			modifX = -1;
+			System.out.println("2,2");
+		}else if(position.gety()<caseCheminSuivante.position.gety()){
+			ymax = 0;
+			modifY = 1;
+			System.out.println("2,3");
+		}else if(position.gety()>caseCheminSuivante.position.gety()){
+			ymax = Integer.MAX_VALUE;
+			modifY = -1;
+			System.out.println("2,4");
+		}
+	}
+	return triMonstreSale(xmax,modifX,ymax,modifY);
+}
+/**
+ * Cette fonction permet d'optimiser les tests de manière un peu dégueu
+ * @param xmax 0 ou Integer.max_value
+ * @param modifX -1, 0 ou 1
+ * @param ymax 0 ou Integer.max_value
+ * @param modifY -1, 0 ou 1
+ * @return le monstre à cibler
+ * @author un type qui n'assume pas
+ */
+private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY){
+	Monstre monstreCible = null;
+	for(Monstre monstre : sesMonstres){
+		if((monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
+			monstreCible = monstre;
+			xmax = monstre.getPosition().getx();
+			ymax = monstre.getPosition().gety();
+		}
+	}
+	return monstreCible;
+}
 
-	
-	
-	
+	protected void setCaseCheminSuivante(Case caseCheminSuivante) {
+	this.caseCheminSuivante = caseCheminSuivante;
+	}
+	protected void setCaseCheminPrecedente(Case caseCheminPrecedente) {
+	this.caseCheminPrecedente = caseCheminPrecedente;
+	}
+	public boolean presenceMonstres(){
+		return !sesMonstres.isEmpty();
+	}
 }

@@ -15,9 +15,9 @@ Pusher vos modifications sur le serveur :
 
 - Fermez Eclipse
 - Lancez Git Bash et éxecutez les commandes suivantes :
-  * git pull
   * git add -A
   * git commit -a -m "message"
+  * git pull
   * git push origin master
 
 Pull les modifications :

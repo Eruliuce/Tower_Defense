@@ -1,0 +1,50 @@
+lundi 16/02/2015 : avancement sur l'attaque des tours (Nicolas)
+
+Pas mal de modifs mineures sur les tours, cases, monstres
+
+Ajout d'une fonction pour gérer l'attaque des monstres volants.
+
+Gérer l'attaque des monstres invisibles (dificulté : faible à moyen)
+idées : la tour qui voit l'invisible met une propriété "invisible révélé" à true sur
+les cases à sa portée;lors de l'attaque, le monstre invisible attaqué interroge sa case 
+(fonction "attaquable" dans Monstre à modifier) pour voir s'il est révélé. 
+Un monstre normal ne fait pas ça.
+ inconvénients : Lors de la vente d'une tour, il faut recalculer les zones d'invisibilité.
+Faire une fonction pour ça à lancer fin phase 2/ début phase 3.
+
+Finir les tests sur la fonction "monstreACibler" dans Case (difficulté : moyen à élevé)
+
+En gros : cette fonction a un comportement différents selon la case précédente et 
+la case suivante. Ces dernières peuvent être en haut, en bas, à droite ou à gauche. 12 
+configurations en tout. En tester le plus possible et dans toutes les conditions possibles.
+Vérifier à chaque fois que le monstre ciblé est le bon. Noter les configs qui créent des bugs
+et me les envoyer. Changer les positions des monstres (même ligne, même colonne, ligne / colonne
+différentes). HF.
+
+Poursuivre le travail sur l'attaque des tours (difficulté : faible)
+
+En partant du principe que la fonction précédente marche, faire ce qu'il reste à faire 
+(normalement pas de difficultés majeures). 
+-Premier objectif : faire une fonction qui sélectionne le dernier monstre sur le chemin
+(le plus proche de l'arrivée). Le chemin est stocké dans le terrain. 
+Idées : la tour interroge sa case. La case interroge le terrain. Le terrain interroge 
+chaque case (cf fonction précédente) tant que pas de monstre trouvé. 
+Easy (j'ai vraiment prémaché le travail).
+-Deuxième objectif : la fonction attaquer elle-même. Elle sélectionne le monstre à attaquer et
+lui enlève des points de vie. Posey.
+Pour les plus motivés : 
+-Finir la fonction "monstreACibler" en ne ciblant que les monstres attaquables;
+dificulté : facile mais je vous tape sur les doigts si vous faites bugger ma fonction
+(en vrai moyen car mon code est dégueu. HF.)
+
+Poursuivre le travail sur le déplacement des mobs (difficulté : moyen à hardcore)
+
+-Finir Dijkstra : finir la boucle de fin qui récupère les indices des cases du chemin. 
+Débugger. Tester. difficulté : Hardcore. Bon courage pour comprendre mon code et le compléter.
+-Faire une fonction qui set up les cases du chemin : affecter les cases précédentes et 
+suivantes. Difficulté facile mais moyen sans dijkstra.
+-Faire la fonction de déplacement des monstres. Cassé si vous avez le reste.
+
+
+
+Je pense que ça suffit pour le moment. Amusez vous bien (-;
