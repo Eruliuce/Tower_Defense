@@ -3,16 +3,38 @@ package Outils;
 import java.io.*;
 import java.util.ArrayList;
 
+import monstres.ModeleMonstre;
+
 public class LecteurFichiers
 {
 	private static int extractInt(String line, String stat) throws NumberFormatException
 	{
-		return Integer.parseInt(line.substring(line.indexOf(":") + 1));
+		int ret = -1;
+		try
+		{
+			ret = Integer.parseInt(line.substring(line.indexOf(":") + 1));
+		}
+		catch(NumberFormatException e)
+		{
+			System.err.println("Erreur : " + e);
+			System.exit(-1);
+		}
+		return ret;
 	}
 	
 	private static float extractFloat(String line, String stat) throws NumberFormatException
 	{
-		return Float.parseFloat(line.substring(line.indexOf(":") + 1));
+		float ret = -1.f;
+		try
+		{
+			ret = Float.parseFloat(line.substring(line.indexOf(":") + 1));
+		}
+		catch(NumberFormatException e)
+		{
+			System.err.println("Erreur : " + e);
+			System.exit(-1);
+		}
+		return ret;
 	}
 	
 	private static String extractString(String line, String stat)
@@ -33,18 +55,10 @@ public class LecteurFichiers
 				boolean trouve = false;
 				while ((line = buff.readLine()) != null && trouve)
 				{
-					System.out.println(line);
+					System.err.println(line);
 					if(line.contains(stat))
 					{
-						try
-						{
-							v = extractInt(line, stat);
-						}
-						catch(NumberFormatException e)
-						{
-							System.out.println("Erreur : " + e.toString());
-							System.exit(-1);
-						}
+						v = extractInt(line, stat);
 						trouve = true;
 					}
 				}
@@ -56,7 +70,7 @@ public class LecteurFichiers
 		}
 		catch (IOException e)
 		{
-			System.out.println("Erreur : " + e.toString());
+			System.err.println("Erreur : " + e.toString());
 			System.exit(-1);
 		}
 		return v;
@@ -74,18 +88,10 @@ public class LecteurFichiers
 				boolean trouve = false;
 				while ((line = buff.readLine()) != null && trouve)
 				{
-					System.out.println(line);
+					System.err.println(line);
 					if(line.contains(stat))
 					{
-						try
-						{
-							v = extractFloat(line, stat);
-						}
-						catch(NumberFormatException e)
-						{
-							System.out.println("Erreur : " + e.toString());
-							System.exit(-1);
-						}
+						v = extractFloat(line, stat);
 						trouve = true;
 					}
 				}
@@ -97,7 +103,7 @@ public class LecteurFichiers
 		}
 		catch (IOException e)
 		{
-			System.out.println("Erreur : " + e.toString());
+			System.err.println("Erreur : " + e);
 			System.exit(-1);
 		}
 		return v;
@@ -115,7 +121,7 @@ public class LecteurFichiers
 				boolean trouve = false;
 				while ((line = buff.readLine()) != null && trouve)
 				{
-					System.out.println(line);
+					System.err.println(line);
 					if(line.contains(stat))
 					{
 						valRet = extractString(line, stat);
@@ -130,14 +136,13 @@ public class LecteurFichiers
 		}
 		catch (IOException e)
 		{
-			System.out.println("Erreur : " + e.toString());
+			System.err.println("Erreur : " + e);
 			System.exit(-1);
 		}
 		return valRet;
 	}
-	
-	/* A terminer :
-	public static ArrayList<ModeleMonstre> getListeModelesMonstres
+
+	public static ArrayList<ModeleMonstre> getListeModelesMonstres(String file)
 	{
 		ArrayList<ModeleMonstre> liste = new ArrayList<ModeleMonstre>();
 		try
@@ -145,12 +150,53 @@ public class LecteurFichiers
 			BufferedReader buff = new BufferedReader(new FileReader(file));
 			try
 			{
-				String line;
-				
+				String line, name = "", image = "";
+				int pv = -1, vitesse = -1, attaque = -1, recompense = -1, cout = -1;
+				boolean invisible = false, volant = false;
+				while((line = buff.readLine()) != null)
+				{
+					if(line.equals("/"))
+					{
+						liste.add(new ModeleMonstre(name, pv, vitesse, image, attaque, recompense, cout, invisible, volant));
+					}
+					else
+					{
+						if(line.contains("name"))
+							name = extractString(line, "name");
+						else if(line.contains("pv"))
+							pv = extractInt(line, "pv");
+						else if(line.contains("vitesse"))
+							vitesse = extractInt(line, "vitesse");
+						else if(line.contains("image"))
+							image = extractString(line, "image");
+						else if(line.contains("attaque"))
+							attaque = extractInt(line, "attaque");
+						else if(line.contains("recompense"))
+							recompense = extractInt(line, "recompense");
+						else if(line.contains("cout"))
+							cout = extractInt(line, "cout");
+						else if(line.contains("invisible"))
+							invisible = extractString(line, "invisible").equals("true") ? true : false;
+						else if(line.contains("volant"))
+							volant = extractString(line, "volant").equals("true") ? true : false;
+						else
+						{
+							System.err.println("Erreur dans le format du fichier " + file + " à la ligne :\n" + line);
+							System.exit(-1);
+						}
+					}
+				}
+			}
+			finally
+			{
+				buff.close();
 			}
 		}
-		catch
+		catch(IOException e)
+		{
+			System.err.println("Erreur : " + e);
+			System.exit(-1);
+		}
 		return liste;
 	}
-	*/
 }
