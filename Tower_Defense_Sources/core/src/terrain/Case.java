@@ -71,6 +71,15 @@ public boolean gettraversable(){
 public int cout() {
 	return 1;
 }	
+
+
+
+public Monstre selectMonstreAttaquer(Tourelle tour){
+	return this.sonTerrain.selectMonstreAttaquer(tour);
+}
+
+
+
 /**
  * Cherche le monstre attaquable par la tour le plus proche de l'arrivée
  * @param tour

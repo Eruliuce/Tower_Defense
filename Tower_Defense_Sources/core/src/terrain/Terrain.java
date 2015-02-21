@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 
+import monstres.Monstre;
+import Tourelle.Tourelle;
+
 
 public class Terrain implements Iterrain, TerrainAlgo {
 	boolean t= true;
@@ -14,6 +17,7 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private int largeur;
 	private int numSpawn;
 	private int numBase;
+	private ArrayList<Case> chemin; 
 	
 	private void initTerrain(int hauteur,int largeur){
 		
@@ -235,6 +239,30 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	public void majCasesChemin(){
 		
 	}
+	
+	
+	/**
+	 * 
+	 * @author Louvetia
+	 * @param tour
+	 * @return Monstre dans la zone de la tour et le plus pres de la base
+	 */
+	public Monstre selectMonstreAttaquer(Tourelle tour){
+		Monstre monstreCibler = null;
+		int i = chemin.size() - 1; // Pas sur de l'indice le plus pres de la base mais il me semble quon avait dis 0->spawn dernier indice-> base
+		boolean monstreTrouver = false;
+		while(!monstreTrouver && i>=0)
+		{
+			if(tour.caseDansLaZone(chemin.get(i)))
+			{
+				monstreCibler = chemin.get(i).monstreACibler(tour);
+				monstreTrouver = (monstreCibler != null);
+			}
+			i--;
+		}
+		return monstreCibler;
+	}
+	
 	
 
 }
