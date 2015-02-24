@@ -17,7 +17,7 @@ public class Controleur_reseau implements Runnable
 		try
 		{
 			servSock = new ServerSocket(PORT);
-			start();
+			//start();
 		}catch(IOException e)
 		{
 			e.printStackTrace();

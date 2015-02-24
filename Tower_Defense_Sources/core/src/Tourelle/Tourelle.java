@@ -15,7 +15,7 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	private boolean antiAerien;
 	private boolean seeInvisble;
 	private Case saCase;
-	private ZoneAttaqueTourelle zone;
+	private int portee;
 	
 	Tourelle (ModeleTourelle modele, Case saCase){
 		this.cout = modele.getCout();
@@ -23,8 +23,52 @@ public class Tourelle extends Decorateur_EffetTourelle {
 		this.sesAmeliorations = modele.ameliorations();
 		this.degat = modele.getDegat();
 		this.saCase = saCase;
+		
+		
+		if (seeInvisble){
+			this.revelerCaseDansLaZone(saCase, true);
+		}
 
 	}
+	
+	public int getDegat() {
+		return degat;
+	}
+
+	
+	/**
+	 * 
+	 * @author Louvetia
+	 * @param caseTester
+	 * @param estUneCasePrecedente
+	 * @return
+	 */
+	private boolean revelerCaseDansLaZone(Case caseTester, boolean estUneCasePrecedente)
+	{
+		if((caseTester.getpos().getx() == this.saCase.getpos().getx())
+			&&(caseTester.getpos().gety() == this.saCase.getpos().gety())	)
+		{
+			caseTester.setInvisibleAdecouvert(true);
+			return revelerCaseDansLaZone(saCase.getCaseCheminPrecedente(), true) && revelerCaseDansLaZone(caseTester.getCaseCheminSuivante(), false);
+		}
+		else{
+			if(this.caseDansLaZone(caseTester))
+			{
+				caseTester.setInvisibleAdecouvert(true);
+				if(estUneCasePrecedente)
+				{
+					return revelerCaseDansLaZone(caseTester.getCaseCheminPrecedente(), true);
+				}
+				else
+				{
+					return revelerCaseDansLaZone(caseTester.getCaseCheminSuivante(), false);
+				}
+			}
+			else
+				return false;
+		}
+	}
+
 	/**
 	 * getter vis à vis du caractère anti-aérien de la tour
 	 * @author BlackNichols
@@ -51,12 +95,54 @@ public class Tourelle extends Decorateur_EffetTourelle {
 		Monstre monstreAttaquer = this.selectMonstreAttaquer();
 		if (monstreAttaquer != null)
 		{
-			
+			monstreAttaquer.seFaireAttaquer(this);
 		}
 	}
 	
-	public boolean caseDansLaZone (CaseAlgo caseTester)
+	public boolean caseDansLaZone (Case caseTester)
 	{
-		return this.zone.caseDansLaZone(caseTester);
+		return saCase.distance(caseTester) <= portee;
+	}
+	
+	public void detruire(){
+		this.enleverLaVisionDesCase(saCase, true);
+		try {
+			this.finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @author Louvetia
+	 * @param caseTester
+	 * @param estUneCasePrecedente
+	 * @return
+	 */
+	private boolean enleverLaVisionDesCase(Case caseTester, boolean estUneCasePrecedente)
+	{
+		if((caseTester.getpos().getx() == this.saCase.getpos().getx())
+				&&(caseTester.getpos().gety() == this.saCase.getpos().gety()))
+			{
+				caseTester.setInvisibleAdecouvert(false);
+				return enleverLaVisionDesCase(saCase.getCaseCheminPrecedente(), true) && enleverLaVisionDesCase(caseTester.getCaseCheminSuivante(), false);
+			}
+			else{
+				if(this.caseDansLaZone(caseTester))
+				{
+					caseTester.setInvisibleAdecouvert(false);
+					if(estUneCasePrecedente)
+					{
+						return enleverLaVisionDesCase(caseTester.getCaseCheminPrecedente(), true);
+					}
+					else
+					{
+						return enleverLaVisionDesCase(caseTester.getCaseCheminSuivante(), false);
+					}
+				}
+				else
+					return false;
+			}
 	}
 }

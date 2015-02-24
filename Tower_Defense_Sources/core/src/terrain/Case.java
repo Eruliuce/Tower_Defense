@@ -3,15 +3,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-<<<<<<< HEAD
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
 
 
-=======
 import Tourelle.Tourelle;
 import monstres.Monstre;
->>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
 public class Case implements CaseAlgo{
 
 private Coordonnees<Integer,Integer> position;	
@@ -21,9 +18,11 @@ private Case caseCheminSuivante;
 private Case caseCheminPrecedente;
 private Terrain sonTerrain;
 public static final int TAILLECASE = 32;
+private boolean invisibleAdecouvert;
 
 	{
 		sesMonstres = new LinkedList<Monstre>();
+		invisibleAdecouvert = false;
 	}
 public Case (int x,int y){
 	position=new Coordonnees<Integer,Integer>(x,y);
@@ -74,6 +73,12 @@ public int cout() {
 
 
 
+public boolean isInvisibleAdecouvert() {
+	return invisibleAdecouvert;
+}
+public void setInvisibleAdecouvert(boolean invisibleAdecouvert) {
+	this.invisibleAdecouvert = invisibleAdecouvert;
+}
 public Monstre selectMonstreAttaquer(Tourelle tour){
 	return this.sonTerrain.selectMonstreAttaquer(tour);
 }
@@ -157,5 +162,18 @@ private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY){
 	}
 	public boolean presenceMonstres(){
 		return !sesMonstres.isEmpty();
+	}
+
+	
+
+	public Case getCaseCheminSuivante() {
+		return caseCheminSuivante;
+	}
+	public Case getCaseCheminPrecedente() {
+		return caseCheminPrecedente;
+	}
+	public int distance(Case caseEloigner)
+	{
+		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
 }

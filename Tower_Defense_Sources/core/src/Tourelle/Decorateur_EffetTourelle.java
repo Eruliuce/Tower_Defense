@@ -1,5 +1,9 @@
 package Tourelle;
 
+import java.util.ArrayList;
+
+import terrain.Case;
+
 public abstract class Decorateur_EffetTourelle {
 	protected Effet_Tourelle sonEffetTourelle;
 //	public void attaquerMonstre(Monstre m)
@@ -10,4 +14,6 @@ public abstract class Decorateur_EffetTourelle {
 //			sonEffetTourelle.attaquerMonstre(m);
 //		}
 //	}
+	
+
 }
