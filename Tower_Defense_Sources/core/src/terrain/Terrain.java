@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import monstres.Monstre;
+import Tourelle.ModeleTourelle;
 import Tourelle.Tourelle;
 
 
@@ -60,9 +61,10 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 
 	
-	public boolean creerTour(/*ModeleTourelle tour , */Coordonnees position ) {
+	public void creerTour(ModeleTourelle tour , Coordonnees<Integer,Integer> position ) {
 		
-		return false;
+		Case caseTour = lstCase.get(position.getx(), position.gety());
+		caseTour.setSaTour(new Tourelle(tour, caseTour));
 	}
 
 	

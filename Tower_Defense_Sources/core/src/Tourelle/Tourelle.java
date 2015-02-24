@@ -17,7 +17,7 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	private Case saCase;
 	private int portee;
 	
-	Tourelle (ModeleTourelle modele, Case saCase){
+	public Tourelle (ModeleTourelle modele, Case saCase){
 		this.cout = modele.getCout();
 		this.vitesseAttaque = modele.getVitesseAttaque();
 		this.sesAmeliorations = modele.ameliorations();
@@ -106,6 +106,7 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	
 	public void detruire(){
 		this.enleverLaVisionDesCase(saCase, true);
+		saCase.setSaTour(null);
 		try {
 			this.finalize();
 		} catch (Throwable e) {

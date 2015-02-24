@@ -22,6 +22,9 @@ public class Case implements CaseAlgo{
 	private Terrain sonTerrain;
 	public static final int TAILLECASE = 32;
 	private boolean invisibleAdecouvert;
+	private Tourelle saTour;
+	
+	
 		{
 			sesMonstres = new LinkedList<Monstre>();
 			invisibleAdecouvert = false;
@@ -60,6 +63,12 @@ public class Case implements CaseAlgo{
 	
 	
 	
+	public Tourelle getSaTour() {
+		return saTour;
+	}
+	public void setSaTour(Tourelle saTour) {
+		this.saTour = saTour;
+	}
 	public boolean gettraversable(){
 		return traversable;
 		 
