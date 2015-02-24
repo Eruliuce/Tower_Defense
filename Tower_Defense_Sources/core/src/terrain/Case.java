@@ -77,6 +77,10 @@ public class Case implements CaseAlgo{
 		return invisibleAdecouvert;
 	}
 	
+	public void setInvisibleAdecouvert(boolean invisibleAdecouvert) {
+		this.invisibleAdecouvert = invisibleAdecouvert;
+	}
+	
 	public Monstre selectMonstreAttaquer(Tourelle tour){
 		return this.sonTerrain.selectMonstreAttaquer(tour);
 	}
