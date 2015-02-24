@@ -21,9 +21,10 @@ public class Case implements CaseAlgo{
 	private Case caseCheminPrecedente;
 	private Terrain sonTerrain;
 	public static final int TAILLECASE = 32;
-	
+	private boolean invisibleAdecouvert;
 		{
 			sesMonstres = new LinkedList<Monstre>();
+			invisibleAdecouvert = false;
 		}
 	public Case (int x,int y){
 		position=new Coordonnees<Integer,Integer>(x,y);
@@ -72,7 +73,9 @@ public class Case implements CaseAlgo{
 		return 1;
 	}	
 	
-	
+	public boolean isInvisibleAdecouvert() {
+		return invisibleAdecouvert;
+	}
 	
 	public Monstre selectMonstreAttaquer(Tourelle tour){
 		return this.sonTerrain.selectMonstreAttaquer(tour);
@@ -157,5 +160,16 @@ public class Case implements CaseAlgo{
 	}
 	public boolean presenceMonstres(){
 		return !sesMonstres.isEmpty();
+	}
+	
+	public Case getCaseCheminSuivante() {
+		return caseCheminSuivante;
+	}
+	public Case getCaseCheminPrecedente() {
+		return caseCheminPrecedente;
+	}
+	public int distance(Case caseEloigner)
+	{
+		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
 }
