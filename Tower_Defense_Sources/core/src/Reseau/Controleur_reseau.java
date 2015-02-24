@@ -17,7 +17,11 @@ public class Controleur_reseau implements Runnable
 		try
 		{
 			servSock = new ServerSocket(PORT);
+<<<<<<< HEAD
 			//start();
+=======
+			// start();
+>>>>>>> 4efda73d2c765ea595a325a9133b29eef9306b91
 		}catch(IOException e)
 		{
 			e.printStackTrace();
