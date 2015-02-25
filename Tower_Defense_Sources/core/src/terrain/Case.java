@@ -62,7 +62,6 @@ public class Case implements CaseAlgo{
 	}
 	
 	
-	
 	public Tourelle getSaTour() {
 		return saTour;
 	}
@@ -184,5 +183,17 @@ public class Case implements CaseAlgo{
 	public int distance(Case caseEloigner)
 	{
 		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
+	}
+	
+	public boolean vendreTourelle()
+	{
+		if(this.saTour != null)
+		{
+			this.saTour.detruire();	
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

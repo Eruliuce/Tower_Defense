@@ -11,14 +11,16 @@ public class ModeleTourelle implements I_Modele_Tourelle{
 	private int degat;
 	private float zone;
 	private ArrayList<I_Modele_Tourelle> sesAmeliorations;
+	private boolean seeInvisible;
+	private boolean antiAerien;
 	
 	public ModeleTourelle(String nomFicConf) {
 		this.cout = LecteurFichiers.getInt(nomFicConf, "Prix");
 		this.vitesseAttaque = LecteurFichiers.getFloat(nomFicConf, "Vitesse-d-attaque");
 		this.degat = LecteurFichiers.getInt(nomFicConf, "Dégat");
 		this.zone = LecteurFichiers.getFloat(nomFicConf, "Zone");
-		
-		//manque le truc d'arnaud
+		this.seeInvisible = (LecteurFichiers.getString(nomFicConf, "seeInvisible") == "oui");
+		this.antiAerien = (LecteurFichiers.getString(nomFicConf, "antiAerien") == "oui");
 	}
 	
 	@Override
@@ -58,4 +60,14 @@ public class ModeleTourelle implements I_Modele_Tourelle{
 	public float getZone(){
 		return this.zone;
 	}
+
+	public boolean isSeeInvisible() {
+		return seeInvisible;
+	}
+
+	public boolean isAntiAerien() {
+		return antiAerien;
+	}
+	
+	
 }

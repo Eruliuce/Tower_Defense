@@ -68,9 +68,10 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 
 	
-	public boolean vendreTour(Coordonnees position ) {
-		
-		return false;
+	public boolean vendreTour(Coordonnees<Integer,Integer> position ) {
+		Case caseVendreTourellle = lstCase.get(position.getx(), position.gety());
+		boolean tourelleVendu = caseVendreTourellle.vendreTourelle();
+		return tourelleVendu;
 	}
 	
 	public Case getCase(int ligne, int colonne){
