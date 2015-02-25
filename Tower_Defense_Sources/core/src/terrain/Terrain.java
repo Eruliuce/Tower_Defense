@@ -8,12 +8,9 @@ import java.util.List;
 
 import exceptions.CaseNonTrouveeException;
 import monstres.Monstre;
-//<<<<<<< HEAD
 import Outils.GestionChemin;
 import Outils.GestionCheminDijkstra;
-//=======
 import Tourelle.ModeleTourelle;
-//>>>>>>> bfb6dcc9c075f5a622e2e4713ab6717a7b241cb4
 import Tourelle.Tourelle;
 
 

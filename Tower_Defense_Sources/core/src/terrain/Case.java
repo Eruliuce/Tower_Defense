@@ -3,13 +3,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-//<<<<<<< HEAD
-
-//import terrain2.CaseAlgo;
-//import terrain2.Coordonnees;
-
-
-
 import Tourelle.Tourelle;
 import monstres.Monstre;
 
@@ -145,9 +138,7 @@ public class Case implements CaseAlgo
 		}
 		return triMonstreSale(xmax,modifX,ymax,modifY,tour);
 	}
-//<<<<<<< HEAD
-	//return triMonstreSale(xmax,modifX,ymax,modifY,tour);
-//}
+
 /**
  * Cette fonction permet d'optimiser les tests de manière un peu dégueu
  * @param xmax 0 ou Integer.max_value
