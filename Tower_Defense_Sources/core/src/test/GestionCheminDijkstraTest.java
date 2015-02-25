@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 
+import terrain.Coordonnees;
 import terrain.Terrain;
 
 import org.junit.Test;
@@ -17,6 +18,8 @@ public class GestionCheminDijkstraTest {
 	@Test
 	public void testLabyrinthe() {
 		Terrain t = new Terrain(10,10,0,99);
+		//A l'air de marcher, a améliorer
+		//t.creerTour(new Coordonnees<Integer,Integer>(9,9));
 		GestionChemin gc = new GestionCheminDijkstra(t, 0, 99, null);
 		try {
 			Collection<Integer> chemin = gc.chemin();
