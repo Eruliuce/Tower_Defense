@@ -207,12 +207,13 @@ public class LecteurFichiers
 			{
 				String line, name = "", image = "";
 				int vitesseAttaque = -1, degat = -1, cout = -1;
+				boolean seeInvisible = false, antiAerien = false;
 				float zone = -1.f;
 				while((line = buff.readLine()) != null)
 				{
 					if(line.equals("/"))
 					{
-						liste.add(new ModeleTourelle(name, image, cout, vitesseAttaque, degat, zone));
+						liste.add(new ModeleTourelle(name, image, cout, vitesseAttaque, degat, zone, seeInvisible, antiAerien));
 					}
 					else
 					{
@@ -228,6 +229,10 @@ public class LecteurFichiers
 							cout = extractInt(line, "degat");
 						else if(line.contains("zone"))
 							zone = extractFloat(line, "zone");
+						else if(line.contains("seeInvisible"))
+							seeInvisible = extractString(line, "seeInvisible").equals("true") ? true : false;
+						else if(line.contains("antiAerien"))
+							antiAerien = extractString(line, "antiAerien").equals("true") ? true : false;
 						else
 						{
 							System.err.println("Erreur dans le format du fichier " + file + " à la ligne :\n" + line);
