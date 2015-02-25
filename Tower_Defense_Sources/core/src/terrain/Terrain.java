@@ -19,6 +19,7 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private int numBase;
 	private ArrayList<Case> chemin; 
 	
+	
 	private void initTerrain(int hauteur,int largeur){
 		
 		for (int i=0;i<hauteur;i++){

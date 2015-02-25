@@ -3,15 +3,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-<<<<<<< HEAD
+
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
 
 
-=======
 import Tourelle.Tourelle;
 import monstres.Monstre;
->>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
+
+
 public class Case implements CaseAlgo{
 
 private Coordonnees<Integer,Integer> position;	
