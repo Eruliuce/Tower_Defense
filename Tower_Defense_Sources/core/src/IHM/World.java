@@ -19,6 +19,9 @@ public class World {
 		for(int i = 0; i < LARGEUR; i++){
 			for(int j = 0; j < HAUTEUR; j++){
 				 blocks.add(new Block(new Vector2(i, j)));
+				 
+				 
+				 
 			}
 		}
 		
