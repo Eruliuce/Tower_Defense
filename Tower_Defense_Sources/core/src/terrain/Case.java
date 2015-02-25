@@ -3,15 +3,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-<<<<<<< HEAD
+
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
 
 
-=======
+
 import Tourelle.Tourelle;
 import monstres.Monstre;
->>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
+
 public class Case implements CaseAlgo{
 
 private Coordonnees<Integer,Integer> position;	
@@ -126,7 +126,7 @@ public Monstre monstreACibler(Tourelle tour){
 			System.out.println("2,4");
 		}
 	}
-	return triMonstreSale(xmax,modifX,ymax,modifY);
+	return triMonstreSale(xmax,modifX,ymax,modifY,tour);
 }
 /**
  * Cette fonction permet d'optimiser les tests de manière un peu dégueu
@@ -137,10 +137,10 @@ public Monstre monstreACibler(Tourelle tour){
  * @return le monstre à cibler
  * @author un type qui n'assume pas
  */
-private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY){
+private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle tour){
 	Monstre monstreCible = null;
 	for(Monstre monstre : sesMonstres){
-		if((monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
+		if(monstre.attaquable(tour) && (monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
 			monstreCible = monstre;
 			xmax = monstre.getPosition().getx();
 			ymax = monstre.getPosition().gety();
