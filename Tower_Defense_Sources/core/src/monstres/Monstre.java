@@ -1,6 +1,7 @@
 package monstres;
 
 import terrain.Case;
+import Jeu.Joueur;
 import Outils.Coordonnees;
 import Tourelle.Tourelle;
 
@@ -75,9 +76,18 @@ public class Monstre extends MonstreAbstrait {
 
 	@Override
 	public void deplacer() {
-		// TODO Auto-generated method stub
-		this.saCase = saCase.getCaseCheminSuivante();
-		
+		int deplacementRestant = vitesse;
+		while (deplacementRestant > 0){
+			Case caseSuivante = saCase.getCaseCheminSuivante();
+			if(!caseSuivante.equals(null)){
+				saCase.retirerMonstre(this);
+				caseSuivante.ajoutMonstre(this);
+				position =	caseSuivante.getpos();
+			}else{
+				Joueur.perdreVies(attaque);
+				mourir();
+			}
+		}
 	}
 
 	@Override
