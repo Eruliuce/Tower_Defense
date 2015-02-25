@@ -50,7 +50,6 @@ public class WorldRenderer {
         this.height = h;
         ppuX = (float)width / world.LARGEUR;
         ppuY = (float)height / world.HAUTEUR;
-        System.out.println(ppuX + " " + ppuY);
     }
     
     /** Charge les textures en mémoire **/
