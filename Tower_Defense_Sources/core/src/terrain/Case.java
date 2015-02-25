@@ -3,16 +3,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-//<<<<<<< HEAD
-//import terrain2.CaseAlgo;
-//import terrain2.Coordonnees;
-
-
-//=======
 import Tourelle.Tourelle;
 import monstres.Monstre;
-//>>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
-public class Case implements CaseAlgo{
+
+public class Case implements CaseAlgo
+{
 
 	private Coordonnees<Integer,Integer> position;	
 	private Collection<Monstre> sesMonstres;
@@ -60,7 +55,6 @@ public class Case implements CaseAlgo{
 		
 		return position;
 	}
-	
 	
 	
 	public Tourelle getSaTour() {
@@ -142,28 +136,29 @@ public class Case implements CaseAlgo{
 				System.out.println("2,4");
 			}
 		}
-		return triMonstreSale(xmax,modifX,ymax,modifY);
+		return triMonstreSale(xmax,modifX,ymax,modifY,tour);
 	}
-	/**
-	 * Cette fonction permet d'optimiser les tests de manière un peu dégueu
-	 * @param xmax 0 ou Integer.max_value
-	 * @param modifX -1, 0 ou 1
-	 * @param ymax 0 ou Integer.max_value
-	 * @param modifY -1, 0 ou 1
-	 * @return le monstre à cibler
-	 * @author un type qui n'assume pas
-	 */
-	private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY){
-		Monstre monstreCible = null;
-		for(Monstre monstre : sesMonstres){
-			if((monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
-				monstreCible = monstre;
-				xmax = monstre.getPosition().getx();
-				ymax = monstre.getPosition().gety();
-			}
+
+/**
+ * Cette fonction permet d'optimiser les tests de manière un peu dégueu
+ * @param xmax 0 ou Integer.max_value
+ * @param modifX -1, 0 ou 1
+ * @param ymax 0 ou Integer.max_value
+ * @param modifY -1, 0 ou 1
+ * @return le monstre à cibler
+ * @author un type qui n'assume pas
+ */
+private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle tour){
+	Monstre monstreCible = null;
+	for(Monstre monstre : sesMonstres){
+		if(monstre.attaquable(tour) && (monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
+			monstreCible = monstre;
+			xmax = monstre.getPosition().getx();
+			ymax = monstre.getPosition().gety();
 		}
-		return monstreCible;
 	}
+	return monstreCible;
+}
 	
 	protected void setCaseCheminSuivante(Case caseCheminSuivante) {
 		this.caseCheminSuivante = caseCheminSuivante;
@@ -185,4 +180,17 @@ public class Case implements CaseAlgo{
 	{
 		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
+	
+	public boolean vendreTourelle()
+	{
+		if(this.saTour != null)
+		{
+			this.saTour.detruire();	
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }

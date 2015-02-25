@@ -4,9 +4,13 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 
+import exceptions.CaseNonTrouveeException;
 import monstres.Monstre;
+import Outils.GestionChemin;
+import Outils.GestionCheminDijkstra;
 import Tourelle.ModeleTourelle;
 import Tourelle.Tourelle;
 
@@ -19,14 +23,14 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private int largeur;
 	private Point posSpawn;
 	private Point posBase;
-	private ArrayList<Case> chemin; 
-	
+	private int numSpawn;
+	private int numBase;
+	private List<Case> chemin; 
+
 	private void initTerrain(int hauteur,int largeur){
 		
 		for (int i=0;i<hauteur;i++){
 			lstCase.addRow(largeur);
-			
-			
 			for (int j=0;j<largeur;j++){
 				lstCase.add(i,j, new Case(i,j));
 				if(i==2&&j==2) lstCase.get(i, j).settraversable(t);
@@ -44,9 +48,11 @@ public class Terrain implements Iterrain, TerrainAlgo {
 		this.largeur = largeur;
 		lstCase=new Array2d<Case>(hauteur);
 		initTerrain(largeur,hauteur);
-		System.out.println("a");
 		this.posBase = posBase;
 		this.posSpawn = posSpawn;
+		this.numBase = numBase;
+		this.numSpawn = numSpawn;
+		chemin = new LinkedList<Case>();
 	}
 	
 	
@@ -55,21 +61,23 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees position  ) {
 		return false;
+		
+		//return false;
 	}
 
 	
 	public void creerTour(ModeleTourelle tour , Coordonnees<Integer,Integer> position ) {
-		
 		Case caseTour = lstCase.get(position.getx(), position.gety());
 		caseTour.setSaTour(new Tourelle(tour, caseTour));
 	}
 
 	
-	public boolean vendreTour(Coordonnees position ) {
-		
-		return false;
+	public boolean vendreTour(Coordonnees<Integer,Integer> position ) {
+		Case caseVendreTourellle = lstCase.get(position.getx(), position.gety());
+		boolean tourelleVendu = caseVendreTourellle.vendreTourelle();
+		return tourelleVendu;
 	}
-	
+
 	public Case getCase(int ligne, int colonne){
 		return lstCase.get(ligne, colonne);
 	}
@@ -243,19 +251,31 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	 * @return Monstre dans la zone de la tour et le plus pres de la base
 	 */
 	public Monstre selectMonstreAttaquer(Tourelle tour){
-		Monstre monstreCibler = null;
+		Monstre monstreCible = null;
 		int i = chemin.size() - 1; // Pas sur de l'indice le plus pres de la base mais il me semble quon avait dis 0->spawn dernier indice-> base
-		boolean monstreTrouver = false;
-		while(!monstreTrouver && i>=0)
+		boolean monstreTrouve = false;
+		while(!monstreTrouve && i>=0)
 		{
 			if(tour.caseDansLaZone(chemin.get(i)))
 			{
-				monstreCibler = chemin.get(i).monstreACibler(tour);
-				monstreTrouver = (monstreCibler != null);
+				monstreCible = chemin.get(i).monstreACibler(tour);
+				monstreTrouve = (monstreCible != null);
 			}
 			i--;
 		}
-		return monstreCibler;
+		return monstreCible;
+	}
+	
+	public void resetChemin() throws CaseNonTrouveeException {
+		GestionChemin gc = new GestionCheminDijkstra(this, 0, hauteur * largeur - 1, null);
+		Collection<Integer> cheminInt = gc.chemin();
+		chemin = new LinkedList<Case>();
+		for(int numCase : cheminInt){
+			chemin.add(this.getCase(numCase));
+		}
+	}
+	private Case getCase(int numCase) {
+		return getCase(ordonnee(numCase), abscisse(numCase));
 	}
 	@Override
 	public int getNumBase() {

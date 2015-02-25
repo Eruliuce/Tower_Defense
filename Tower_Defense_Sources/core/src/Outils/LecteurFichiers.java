@@ -3,6 +3,7 @@ package Outils;
 import java.io.*;
 import java.util.ArrayList;
 
+import Tourelle.ModeleTourelle;
 import monstres.ModeleMonstre;
 
 public class LecteurFichiers
@@ -175,6 +176,63 @@ public class LecteurFichiers
 							invisible = extractString(line, "invisible").equals("true") ? true : false;
 						else if(line.contains("volant"))
 							volant = extractString(line, "volant").equals("true") ? true : false;
+						else
+						{
+							System.err.println("Erreur dans le format du fichier " + file + " à la ligne :\n" + line);
+							System.exit(-1);
+						}
+					}
+				}
+			}
+			finally
+			{
+				buff.close();
+			}
+		}
+		catch(IOException e)
+		{
+			System.err.println("Erreur : " + e);
+			System.exit(-1);
+		}
+		return liste;
+	}
+	
+	public static ArrayList<ModeleTourelle> getListeModelesTourelles(String file)
+	{
+		ArrayList<ModeleTourelle> liste = new ArrayList<ModeleTourelle>();
+		try
+		{
+			BufferedReader buff = new BufferedReader(new FileReader(file));
+			try
+			{
+				String line, name = "", image = "";
+				int vitesseAttaque = -1, degat = -1, cout = -1;
+				boolean seeInvisible = false, antiAerien = false;
+				float zone = -1.f;
+				while((line = buff.readLine()) != null)
+				{
+					if(line.equals("/"))
+					{
+						liste.add(new ModeleTourelle(name, image, cout, vitesseAttaque, degat, zone, seeInvisible, antiAerien));
+					}
+					else
+					{
+						if(line.contains("name"))
+							name = extractString(line, "name");
+						else if(line.contains("vitesseattaque"))
+							vitesseAttaque = extractInt(line, "vitesseattaque");
+						else if(line.contains("image"))
+							image = extractString(line, "image");
+						else if(line.contains("cout"))
+							cout = extractInt(line, "cout");
+						else if(line.contains("degat"))
+							cout = extractInt(line, "degat");
+						else if(line.contains("zone"))
+							zone = extractFloat(line, "zone");
+						else if(line.contains("seeInvisible"))
+							seeInvisible = extractString(line, "seeInvisible").equals("true") ? true : false;
+						else if(line.contains("antiAerien"))
+							antiAerien = extractString(line, "antiAerien").equals("true") ? true : false;
 						else
 						{
 							System.err.println("Erreur dans le format du fichier " + file + " à la ligne :\n" + line);

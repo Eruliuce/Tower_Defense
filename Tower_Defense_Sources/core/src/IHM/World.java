@@ -29,7 +29,7 @@ public class World {
 		monTerrain = new Terrain(HAUTEUR, LARGEUR, new Point(1,1),new Point(2,2));
 		mesMonstres = new ArrayList<Monstre>();
 		for(int i = 5 ; i < 10; i++){
-			mesMonstres.add(new Monstre(i,i));
+			mesMonstres.add(new Monstre(i,i));		 	 
 		}
 		mesTourelles = new ArrayList<Tourelle>();
 	}
