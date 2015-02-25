@@ -189,7 +189,6 @@ private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle
 	{
 		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
-<<<<<<< HEAD
 	
 	public boolean vendreTourelle()
 	{
@@ -202,7 +201,5 @@ private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle
 			return false;
 		}
 	}
+
 }
-=======
-}
->>>>>>> cb0454d3121d8bdada2c16565fba92a8ed706e20
