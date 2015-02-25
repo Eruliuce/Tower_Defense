@@ -80,8 +80,13 @@ public class Monstre extends MonstreAbstrait {
 	}
 
 	@Override
-	public void seFaireAttaquer() {
+	public void seFaireAttaquer(Tourelle tour) {
 		// TODO Auto-generated method stub
+		this.pv-=tour.getDegat();
+		if (this.pv <= 0)
+		{
+			this.mourir();
+		}
 		
 	}
 }

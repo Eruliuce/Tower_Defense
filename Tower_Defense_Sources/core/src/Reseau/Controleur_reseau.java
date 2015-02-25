@@ -3,10 +3,8 @@ package Reseau;
 import java.io.IOException;
 import java.net.*;
 
-import javax.xml.stream.events.StartDocument;
 
-
-public class Controleur_reseau implements Runnable
+public class Controleur_reseau extends Thread
 {
 	private final int PORT = 10666;
 	private ServerSocket servSock;
@@ -18,7 +16,8 @@ public class Controleur_reseau implements Runnable
 		{
 			servSock = new ServerSocket(PORT);
 			start();
-		}catch(IOException e)
+		}
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -31,7 +30,8 @@ public class Controleur_reseau implements Runnable
 		try
 		{
 			sock = servSock.accept();
-		}catch(IOException e)
+		}
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}

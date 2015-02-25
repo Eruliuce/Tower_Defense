@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+//<<<<<<< HEAD
 
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
@@ -12,122 +13,142 @@ import java.util.LinkedList;
 import Tourelle.Tourelle;
 import monstres.Monstre;
 
-public class Case implements CaseAlgo{
+public class Case implements CaseAlgo
+{
 
-private Coordonnees<Integer,Integer> position;	
-private Collection<Monstre> sesMonstres;
-private boolean traversable=true;
-private Case caseCheminSuivante;
-private Case caseCheminPrecedente;
-private Terrain sonTerrain;
-public static final int TAILLECASE = 32;
-
-	{
-		sesMonstres = new LinkedList<Monstre>();
-	}
-public Case (int x,int y){
-	position=new Coordonnees<Integer,Integer>(x,y);
-    	
-}
-/**
- * ajoute un monstre à la liste des monstres présents sur la case
- * @param monstre : le monstre à ajouter
- * @return booleen : True si l'ajout s'est fait
- * @author BlackNichols
- */
-public boolean ajoutMonstre(Monstre monstre){
-	return sesMonstres.add(monstre);
-}
-/**
- * retire un monstre à la liste des monstres présents sur la case
- * @param monstre : le monstre à retirer
- * @return booleen : True si le retrait s'est fait
- * @author BlackNichols
- */
-public boolean retirerMonstre(Monstre monstre){
-	return sesMonstres.remove(monstre);
-}
-
-public Case(Coordonnees<Integer,Integer> c){
-	position = c;
-}
-
-public Coordonnees<Integer,Integer> getpos(){
+	private Coordonnees<Integer,Integer> position;	
+	private Collection<Monstre> sesMonstres;
+	private boolean traversable=true;
+	private Case caseCheminSuivante;
+	private Case caseCheminPrecedente;
+	private Terrain sonTerrain;
+	public static final int TAILLECASE = 32;
+	private boolean invisibleAdecouvert;
+	private Tourelle saTour;
 	
-	return position;
-}
-
-
-
-public boolean gettraversable(){
-	return traversable;
-	 
-}
- public void settraversable(boolean t){
-	traversable=t; 
-	 
- }
-
-public int cout() {
-	return 1;
-}	
-
-
-
-public Monstre selectMonstreAttaquer(Tourelle tour){
-	return this.sonTerrain.selectMonstreAttaquer(tour);
-}
-
-
-
-/**
- * Cherche le monstre attaquable par la tour le plus proche de l'arrivée
- * @param tour
- * @return monstre : le monstre qui sera ciblé par la tour
- * @author BlackNichols
- */
-public Monstre monstreACibler(Tourelle tour){
-	int ymax = 0, xmax = 0, modifX = 0, modifY = 0;
-	if(caseCheminPrecedente != null){
-		if(position.getx()>caseCheminPrecedente.position.getx()){
-			xmax = 0;
-			modifX = 1;
-			System.out.println("1,1");
-		}else if(position.getx()<caseCheminPrecedente.position.getx()){
-			xmax = Integer.MAX_VALUE;
-			modifX = -1;
-			System.out.println("1,2");
-		}else if(position.gety()>caseCheminPrecedente.position.gety()){
-			ymax = 0;
-			modifY = 1;
-			System.out.println("1,3");
-		}else if(position.gety()<caseCheminPrecedente.position.gety()){
-			ymax = Integer.MAX_VALUE;
-			modifY = -1;
-			System.out.println("1,4");
+	
+		{
+			sesMonstres = new LinkedList<Monstre>();
+			invisibleAdecouvert = false;
 		}
+	public Case (int x,int y){
+		position=new Coordonnees<Integer,Integer>(x,y);
+	    	
 	}
-	if(caseCheminSuivante != null){
-		if(position.getx()<caseCheminSuivante.position.getx()){
-			xmax = 0;
-			modifX = 1;
-			System.out.println("2,1");
-		}else if(position.getx()>caseCheminSuivante.position.getx()){
-			xmax = Integer.MAX_VALUE;
-			modifX = -1;
-			System.out.println("2,2");
-		}else if(position.gety()<caseCheminSuivante.position.gety()){
-			ymax = 0;
-			modifY = 1;
-			System.out.println("2,3");
-		}else if(position.gety()>caseCheminSuivante.position.gety()){
-			ymax = Integer.MAX_VALUE;
-			modifY = -1;
-			System.out.println("2,4");
+	/**
+	 * ajoute un monstre à la liste des monstres présents sur la case
+	 * @param monstre : le monstre à ajouter
+	 * @return booleen : True si l'ajout s'est fait
+	 * @author BlackNichols
+	 */
+	public boolean ajoutMonstre(Monstre monstre){
+		return sesMonstres.add(monstre);
+	}
+	/**
+	 * retire un monstre à la liste des monstres présents sur la case
+	 * @param monstre : le monstre à retirer
+	 * @return booleen : True si le retrait s'est fait
+	 * @author BlackNichols
+	 */
+	public boolean retirerMonstre(Monstre monstre){
+		return sesMonstres.remove(monstre);
+	}
+	
+	public Case(Coordonnees<Integer,Integer> c){
+		position = c;
+	}
+	
+	public Coordonnees<Integer,Integer> getpos(){
+		
+		return position;
+	}
+	
+	
+	
+	public Tourelle getSaTour() {
+		return saTour;
+	}
+	public void setSaTour(Tourelle saTour) {
+		this.saTour = saTour;
+	}
+	public boolean gettraversable(){
+		return traversable;
+		 
+	}
+	 public void settraversable(boolean t){
+		traversable=t; 
+		 
+	 }
+	
+	public int cout() {
+		return 1;
+	}	
+	
+	public boolean isInvisibleAdecouvert() {
+		return invisibleAdecouvert;
+	}
+	
+	public void setInvisibleAdecouvert(boolean invisibleAdecouvert) {
+		this.invisibleAdecouvert = invisibleAdecouvert;
+	}
+	
+	public Monstre selectMonstreAttaquer(Tourelle tour){
+		return this.sonTerrain.selectMonstreAttaquer(tour);
+	}
+	
+	
+	
+	/**
+	 * Cherche le monstre attaquable par la tour le plus proche de l'arrivée
+	 * @param tour
+	 * @return monstre : le monstre qui sera ciblé par la tour
+	 * @author BlackNichols
+	 */
+	public Monstre monstreACibler(Tourelle tour){
+		int ymax = 0, xmax = 0, modifX = 0, modifY = 0;
+		if(caseCheminPrecedente != null){
+			if(position.getx()>caseCheminPrecedente.position.getx()){
+				xmax = 0;
+				modifX = 1;
+				System.out.println("1,1");
+			}else if(position.getx()<caseCheminPrecedente.position.getx()){
+				xmax = Integer.MAX_VALUE;
+				modifX = -1;
+				System.out.println("1,2");
+			}else if(position.gety()>caseCheminPrecedente.position.gety()){
+				ymax = 0;
+				modifY = 1;
+				System.out.println("1,3");
+			}else if(position.gety()<caseCheminPrecedente.position.gety()){
+				ymax = Integer.MAX_VALUE;
+				modifY = -1;
+				System.out.println("1,4");
+			}
 		}
+		if(caseCheminSuivante != null){
+			if(position.getx()<caseCheminSuivante.position.getx()){
+				xmax = 0;
+				modifX = 1;
+				System.out.println("2,1");
+			}else if(position.getx()>caseCheminSuivante.position.getx()){
+				xmax = Integer.MAX_VALUE;
+				modifX = -1;
+				System.out.println("2,2");
+			}else if(position.gety()<caseCheminSuivante.position.gety()){
+				ymax = 0;
+				modifY = 1;
+				System.out.println("2,3");
+			}else if(position.gety()>caseCheminSuivante.position.gety()){
+				ymax = Integer.MAX_VALUE;
+				modifY = -1;
+				System.out.println("2,4");
+			}
+		}
+		return triMonstreSale(xmax,modifX,ymax,modifY,tour);
 	}
-	return triMonstreSale(xmax,modifX,ymax,modifY,tour);
-}
+//<<<<<<< HEAD
+	//return triMonstreSale(xmax,modifX,ymax,modifY,tour);
+//}
 /**
  * Cette fonction permet d'optimiser les tests de manière un peu dégueu
  * @param xmax 0 ou Integer.max_value
@@ -148,14 +169,25 @@ private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle
 	}
 	return monstreCible;
 }
-
+	
 	protected void setCaseCheminSuivante(Case caseCheminSuivante) {
-	this.caseCheminSuivante = caseCheminSuivante;
+		this.caseCheminSuivante = caseCheminSuivante;
 	}
 	protected void setCaseCheminPrecedente(Case caseCheminPrecedente) {
-	this.caseCheminPrecedente = caseCheminPrecedente;
+		this.caseCheminPrecedente = caseCheminPrecedente;
 	}
 	public boolean presenceMonstres(){
 		return !sesMonstres.isEmpty();
+	}
+	
+	public Case getCaseCheminSuivante() {
+		return caseCheminSuivante;
+	}
+	public Case getCaseCheminPrecedente() {
+		return caseCheminPrecedente;
+	}
+	public int distance(Case caseEloigner)
+	{
+		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
 }
