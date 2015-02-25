@@ -66,7 +66,7 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees position  ) {
 		
-		//return false;
+		return false;
 	}
 
 	

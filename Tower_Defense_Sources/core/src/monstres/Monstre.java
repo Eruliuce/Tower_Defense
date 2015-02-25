@@ -76,6 +76,7 @@ public class Monstre extends MonstreAbstrait {
 	@Override
 	public void deplacer() {
 		// TODO Auto-generated method stub
+		this.saCase = saCase.getCaseCheminSuivante();
 		
 	}
 
