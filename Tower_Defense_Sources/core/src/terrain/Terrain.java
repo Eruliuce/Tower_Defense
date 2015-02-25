@@ -1,5 +1,6 @@
 package terrain;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -16,8 +17,8 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private Array2d <Case> lstCase;
 	private int hauteur;
 	private int largeur;
-	private int numSpawn;
-	private int numBase;
+	private Point posSpawn;
+	private Point posBase;
 	private ArrayList<Case> chemin; 
 	
 	private void initTerrain(int hauteur,int largeur){
@@ -27,12 +28,8 @@ public class Terrain implements Iterrain, TerrainAlgo {
 			
 			
 			for (int j=0;j<largeur;j++){
-				
-				System.out.println(i);
-				System.out.println(j);
 				lstCase.add(i,j, new Case(i,j));
 				if(i==2&&j==2) lstCase.get(i, j).settraversable(t);
-				
 			}
 		}
 		
@@ -42,13 +39,14 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	 * @param hauteur (vertical)
 	 * @param largeur (horizontal)
 	 */
-	public Terrain(int hauteur ,int largeur, int numSpawn, int numBase) {
+	public Terrain(int hauteur ,int largeur, Point posSpawn, Point posBase) {
 		this.hauteur = hauteur;
 		this.largeur = largeur;
 		lstCase=new Array2d<Case>(hauteur);
 		initTerrain(largeur,hauteur);
-		this.numBase = numBase;
-		this.numSpawn = numSpawn;
+		System.out.println("a");
+		this.posBase = posBase;
+		this.posSpawn = posSpawn;
 	}
 	
 	
@@ -56,7 +54,6 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 	
 	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees position  ) {
-		
 		return false;
 	}
 
@@ -76,30 +73,17 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	public Case getCase(int ligne, int colonne){
 		return lstCase.get(ligne, colonne);
 	}
+
 	
-	
-	public static void main(String[] args){
-	//Array2d<Case>	lstCase=new Array2d<Case>();
-//	lstCase.addRow();
-//	lstCase.add(0, 0, new Case(0,0));
-//	lstCase.addRow();
-//	lstCase.add(1,0, new Case(0,0));
-		Terrain t= new Terrain(4,4,0,0);
-		
-		
-		
+	public Point getPosBase() {
+
+		return posBase;
 	}
 
 	
-	public int getNumBase() {
-
-		return numBase;
-	}
-
+	public Point getPosSpawn() {
 	
-	public int getNumSpawn() {
-	
-		return numSpawn;
+		return posSpawn;
 	}
 
 	
@@ -272,6 +256,16 @@ public class Terrain implements Iterrain, TerrainAlgo {
 			i--;
 		}
 		return monstreCibler;
+	}
+	@Override
+	public int getNumBase() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getNumSpawn() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

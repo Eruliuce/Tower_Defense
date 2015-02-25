@@ -13,6 +13,62 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	private int degat;
 	private Collection<I_Modele_Tourelle> sesAmeliorations;
 	private boolean antiAerien;
+	public int getCout() {
+		return cout;
+	}
+
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
+
+	public float getVitesseAttaque() {
+		return vitesseAttaque;
+	}
+
+	public void setVitesseAttaque(float vitesseAttaque) {
+		this.vitesseAttaque = vitesseAttaque;
+	}
+
+	public Collection<I_Modele_Tourelle> getSesAmeliorations() {
+		return sesAmeliorations;
+	}
+
+	public void setSesAmeliorations(Collection<I_Modele_Tourelle> sesAmeliorations) {
+		this.sesAmeliorations = sesAmeliorations;
+	}
+
+	public boolean isSeeInvisble() {
+		return seeInvisble;
+	}
+
+	public void setSeeInvisble(boolean seeInvisble) {
+		this.seeInvisble = seeInvisble;
+	}
+
+	public Case getSaCase() {
+		return saCase;
+	}
+
+	public void setSaCase(Case saCase) {
+		this.saCase = saCase;
+	}
+
+	public int getPortee() {
+		return portee;
+	}
+
+	public void setPortee(int portee) {
+		this.portee = portee;
+	}
+
+	public void setDegat(int degat) {
+		this.degat = degat;
+	}
+
+	public void setAntiAerien(boolean antiAerien) {
+		this.antiAerien = antiAerien;
+	}
+
 	private boolean seeInvisble;
 	private Case saCase;
 	private int portee;

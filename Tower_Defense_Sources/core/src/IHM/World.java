@@ -1,14 +1,24 @@
 package IHM;
 
+import java.awt.Point;
 import java.util.ArrayList;
+
+import terrain.Terrain;
+import monstres.Monstre;
+import Tourelle.Tourelle;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class World {
 	/* Composants du terrain */
-	public static final int LARGEUR = 16;
-	public static final int HAUTEUR = 9;
-	ArrayList<Block> blocks = new ArrayList<Block>();
+	public final int LARGEUR = 30;
+	public final int HAUTEUR = 20;
+	public final float TAILLECASE = 1f;
+	public final float TAILLEMONSTRE = 1.0f;
+	public final float VITESSEMONSTRE = 2.0f;
+	public ArrayList<Monstre> mesMonstres;
+	public ArrayList<Tourelle> mesTourelles;
+	public Terrain monTerrain;
 	
 	
 	public World() {
@@ -16,15 +26,12 @@ public class World {
     }
 	
 	private void createDemoWorld() {
-		for(int i = 0; i < LARGEUR; i++){
-			for(int j = 0; j < HAUTEUR; j++){
-				 blocks.add(new Block(new Vector2(i, j)));
-			}
+		monTerrain = new Terrain(HAUTEUR, LARGEUR, new Point(1,1),new Point(2,2));
+		mesMonstres = new ArrayList<Monstre>();
+		for(int i = 5 ; i < 10; i++){
+			mesMonstres.add(new Monstre(i,i));
 		}
-		
+		mesTourelles = new ArrayList<Tourelle>();
 	}
-
-	public ArrayList<Block> getBlocks() {
-        return blocks;
-    }
+	
 }
