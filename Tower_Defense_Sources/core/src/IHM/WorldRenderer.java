@@ -1,4 +1,7 @@
 package IHM;
+import monstres.Monstre;
+import Tourelle.Tourelle;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,13 +13,9 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class WorldRenderer {
 	
-	private static final float CAMERA_WIDTH = 10f;
-	private static final float CAMERA_HEIGHT = 7f;
-	
 	private World world;
     private OrthographicCamera cam;
     private SpriteBatch spriteBatch;
-    private boolean debug = false;
     private int width;
     private int height;
     private float ppuX; // pixels par unité pour X
@@ -27,22 +26,21 @@ public class WorldRenderer {
      * formes de base
      * Sera utilisé pour des fins de débogage
      * **/
-    ShapeRenderer debugRenderer = new ShapeRenderer();
+    ShapeRenderer shapeRenderer;
  
     /** Textures **/
     Texture blockTexture;
-    
-    
-    
+    Texture monsterTexture;
     
     /** Constructeur **/
-    public WorldRenderer(World world, boolean debug) {
+    public WorldRenderer(World world) {
         this.world = world;
-        this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-        this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+        this.cam = new OrthographicCamera(world.LARGEUR, world.HAUTEUR);
+        this.cam.position.set(world.HAUTEUR, world.LARGEUR,0);
         this.cam.update();
-        this.debug = debug;
         spriteBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setColor(Color.BLUE);
         loadTextures();
     }
     
@@ -50,51 +48,55 @@ public class WorldRenderer {
     public void setSize (int w, int h) {
         this.width = w;
         this.height = h;
-        ppuX = (float)width / CAMERA_WIDTH;
-        ppuY = (float)height / CAMERA_HEIGHT;
+        ppuX = (float)width / world.LARGEUR;
+        ppuY = (float)height / world.HAUTEUR;
     }
     
     /** Charge les textures en mémoire **/
     private void loadTextures() {
-    	blockTexture = new Texture(Gdx.files.internal("images/block.png"));
+    	blockTexture = new Texture(Gdx.files.internal("images/grass.png"));
+    	monsterTexture = new Texture(Gdx.files.internal("images/monster.png"));
     }
  
     
     /** Boucle principale appelant les différentes méthodes nécessaires **/
     public void render() {
         spriteBatch.begin();
-            drawBlocks();
+        shapeRenderer.begin(ShapeType.Filled);
+            drawTerrain();
+            drawMonstres();
+            //drawTourelles();
+        shapeRenderer.end();
         spriteBatch.end();
-        if (debug)
-            drawDebug();
+        //deplacerMonstres();
     }
-    
-    /** Dessine les blocs de façon normale ou avec le mode debug (avec des formes pour debug) **/
-    private void drawBlocks() {
-        for (Block block : world.getBlocks()) {
-            spriteBatch.draw(
-                blockTexture,
-                block.getPosition().x * ppuX,
-                block.getPosition().y * ppuY,
-                Block.SIZE * ppuX,
-                Block.SIZE * ppuY);
+	private void drawTourelles() {
+    	shapeRenderer.setColor(Color.RED);
+		for(Tourelle tourelle : world.mesTourelles){
+			shapeRenderer.rect(tourelle.getSaCase().getpos().getx(),tourelle.getSaCase().getpos().gety(),2, 2);
+		}
+	}
+
+    private void drawTerrain() {
+        for(int i = 0; i < world.LARGEUR; i++){
+        	for(int j = 0; j < world.HAUTEUR; j++){
+        		spriteBatch.draw(blockTexture,
+        			world.monTerrain.getCase(i, j).getpos().getx()*ppuX,
+        			world.monTerrain.getCase(i, j).getpos().gety()*ppuY,
+        			world.TAILLECASE*ppuX,
+        			world.TAILLECASE*ppuY);
+        	}
         }
-    }
-    
-    private void drawDebug() {
-        // Démarrage du renderer
-        debugRenderer.setProjectionMatrix(cam.combined);
-        debugRenderer.begin(ShapeType.Line);
- 
-        // render blocks
-        for (Block block : world.getBlocks()) {
-            Rectangle rect = block.getBounds();
-            float x1 = block.getPosition().x + rect.x;
-            float y1 = block.getPosition().y + rect.y;
-            debugRenderer.setColor(new Color(1, 0, 0, 1));
-            debugRenderer.rect(x1, y1, rect.width, rect.height);
-        }
-        debugRenderer.end();
-    }
-    
+    }  
+    	
+
+	private void drawMonstres() {
+		for(Monstre monstre : world.mesMonstres){
+			spriteBatch.draw(monsterTexture,
+        			monstre.getPosition().getx()*ppuX,
+        			monstre.getPosition().gety()*ppuY,
+        			world.TAILLEMONSTRE*ppuX,
+        			world.TAILLEMONSTRE*ppuY);	
+		}	
+	}
 }

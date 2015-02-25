@@ -1,22 +1,12 @@
 package terrain;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-//<<<<<<< HEAD
-
-//import terrain2.CaseAlgo;
-//import terrain2.Coordonnees;
-
-
-
-
+import Outils.Coordonnees;
 import Tourelle.Tourelle;
 import monstres.Monstre;
 
-public class Case implements CaseAlgo
-{
+public class Case {
 
 	private Coordonnees<Integer,Integer> position;	
 	public Coordonnees<Integer, Integer> getPosition() {
@@ -67,7 +57,6 @@ public class Case implements CaseAlgo
 		
 		return position;
 	}
-	
 	
 	
 	public Tourelle getSaTour() {
@@ -153,9 +142,7 @@ public class Case implements CaseAlgo
 		}
 		return triMonstreSale(xmax,modifX,ymax,modifY,tour);
 	}
-//<<<<<<< HEAD
-	//return triMonstreSale(xmax,modifX,ymax,modifY,tour);
-//}
+
 /**
  * Cette fonction permet d'optimiser les tests de manière un peu dégueu
  * @param xmax 0 ou Integer.max_value
@@ -209,4 +196,17 @@ public class Case implements CaseAlgo
 	{
 		return Math.abs(position.getx()-caseEloigner.getpos().getx()) + Math.abs(position.gety()-caseEloigner.getpos().gety());
 	}
+	
+	public boolean vendreTourelle()
+	{
+		if(this.saTour != null)
+		{
+			this.saTour.detruire();	
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }

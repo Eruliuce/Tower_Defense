@@ -1,7 +1,8 @@
 package monstres;
 
 import terrain.Case;
-import terrain.Coordonnees;
+import Jeu.Joueur;
+import Outils.Coordonnees;
 import Tourelle.Tourelle;
 
 public class Monstre extends MonstreAbstrait {
@@ -61,7 +62,7 @@ public class Monstre extends MonstreAbstrait {
 	 * @return booleen : oui/non
 	 */
 	private boolean checkInvisible(Tourelle tour) {
-		return !invisible || tour.canSeeInvisible();
+		return !invisible || saCase.isInvisibleAdecouvert();
 	}
 	/**
 	 * vérifie si la tour peut attaquer vis à vis du paramètre volant/terrestre du monstre
@@ -78,11 +79,15 @@ public class Monstre extends MonstreAbstrait {
 		int deplacementRestant = vitesse;
 		while (deplacementRestant > 0){
 			Case caseSuivante = saCase.getCaseCheminSuivante();
-			saCase.retirerMonstre(this);
-			caseSuivante.ajoutMonstre(this);
-			position =	caseSuivante.getpos();
+			if(!caseSuivante.equals(null)){
+				saCase.retirerMonstre(this);
+				caseSuivante.ajoutMonstre(this);
+				position =	caseSuivante.getpos();
+			}else{
+				Joueur.perdreVies(attaque);
+				mourir();
+			}
 		}
-		
 	}
 
 	@Override

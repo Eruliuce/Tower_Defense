@@ -1,5 +1,4 @@
 package Outils;
-import java.util.List;
 
 public class ModeleCase{
 	protected int indCasePrec;

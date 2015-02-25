@@ -14,8 +14,11 @@ public class ModeleTourelle implements I_Modele_Tourelle
 	private int degat;
 	private float zone;
 	private ArrayList<I_Modele_Tourelle> sesAmeliorations;
+	private boolean seeInvisible;
+	private boolean antiAerien;
 	
-	public ModeleTourelle(String name, String image, int cout, float vitesseAttque, int degat, float zone)
+
+	public ModeleTourelle(String name, String image, int cout, float vitesseAttque, int degat, float zone, boolean seeInvisible, boolean antiAerien)
 	{
 		this.name = name;
 		this.image = image;
@@ -23,6 +26,8 @@ public class ModeleTourelle implements I_Modele_Tourelle
 		this.vitesseAttaque = vitesseAttque;
 		this.degat = degat;
 		this.zone = zone;
+		this.seeInvisible = seeInvisible;
+		this.antiAerien = antiAerien;
 	}
 	
 	@Override
@@ -62,4 +67,18 @@ public class ModeleTourelle implements I_Modele_Tourelle
 	public float getZone(){
 		return this.zone;
 	}
+
+	public boolean isSeeInvisible() {
+		return seeInvisible;
+	}
+
+	public boolean isAntiAerien() {
+		return antiAerien;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	
 }

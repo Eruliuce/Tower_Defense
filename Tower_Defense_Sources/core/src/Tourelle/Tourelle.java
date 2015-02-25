@@ -5,7 +5,6 @@ import java.util.Collection;
 import monstres.Monstre;
 import ZoneAttaqueTourelle.ZoneAttaqueTourelle;
 import terrain.Case;
-import terrain.CaseAlgo;
 
 public class Tourelle extends Decorateur_EffetTourelle {
 	private int cout;
@@ -13,6 +12,62 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	private int degat;
 	private Collection<I_Modele_Tourelle> sesAmeliorations;
 	private boolean antiAerien;
+	public int getCout() {
+		return cout;
+	}
+
+	public void setCout(int cout) {
+		this.cout = cout;
+	}
+
+	public float getVitesseAttaque() {
+		return vitesseAttaque;
+	}
+
+	public void setVitesseAttaque(float vitesseAttaque) {
+		this.vitesseAttaque = vitesseAttaque;
+	}
+
+	public Collection<I_Modele_Tourelle> getSesAmeliorations() {
+		return sesAmeliorations;
+	}
+
+	public void setSesAmeliorations(Collection<I_Modele_Tourelle> sesAmeliorations) {
+		this.sesAmeliorations = sesAmeliorations;
+	}
+
+	public boolean isSeeInvisble() {
+		return seeInvisble;
+	}
+
+	public void setSeeInvisble(boolean seeInvisble) {
+		this.seeInvisble = seeInvisble;
+	}
+
+	public Case getSaCase() {
+		return saCase;
+	}
+
+	public void setSaCase(Case saCase) {
+		this.saCase = saCase;
+	}
+
+	public int getPortee() {
+		return portee;
+	}
+
+	public void setPortee(int portee) {
+		this.portee = portee;
+	}
+
+	public void setDegat(int degat) {
+		this.degat = degat;
+	}
+
+	public void setAntiAerien(boolean antiAerien) {
+		this.antiAerien = antiAerien;
+	}
+
 	private boolean seeInvisble;
 	private Case saCase;
 	private int portee;
@@ -23,6 +78,20 @@ public class Tourelle extends Decorateur_EffetTourelle {
 		this.sesAmeliorations = modele.ameliorations();
 		this.degat = modele.getDegat();
 		this.saCase = saCase;
+		this.seeInvisble = modele.isSeeInvisible();
+		
+		if (modele.isAntiAerien())
+		{
+			this.sonEffetTourelle = new AntiAerien_Tourelle(this);
+			if(modele.isSeeInvisible()){
+				this.sonEffetTourelle.setSonDecorateur(new VisionInvisible_Tourelle(sonEffetTourelle));
+			}
+		}
+		else{
+			if(modele.isSeeInvisible()) {
+				this.sonEffetTourelle = new VisionInvisible_Tourelle(this);
+			}
+		}
 		
 		
 		if (seeInvisble){
@@ -105,7 +174,9 @@ public class Tourelle extends Decorateur_EffetTourelle {
 	}
 	
 	public void detruire(){
-		this.enleverLaVisionDesCase(saCase, true);
+		if(this.seeInvisble) {
+			this.enleverLaVisionDesCase(saCase, true);
+		}
 		saCase.setSaTour(null);
 		try {
 			this.finalize();

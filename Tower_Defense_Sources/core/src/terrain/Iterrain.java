@@ -1,7 +1,7 @@
 package terrain;
 
 import Tourelle.ModeleTourelle;
-import terrain.Coordonnees;
+import Outils.Coordonnees;
 
 
 public interface Iterrain {
