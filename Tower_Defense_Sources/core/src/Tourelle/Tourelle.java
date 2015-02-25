@@ -5,7 +5,6 @@ import java.util.Collection;
 import monstres.Monstre;
 import ZoneAttaqueTourelle.ZoneAttaqueTourelle;
 import terrain.Case;
-import terrain.CaseAlgo;
 
 public class Tourelle extends Decorateur_EffetTourelle {
 	private int cout;
