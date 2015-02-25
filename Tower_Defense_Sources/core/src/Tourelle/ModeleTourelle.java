@@ -5,20 +5,24 @@ import java.util.Collection;
 
 import Outils.LecteurFichiers;
 
-public class ModeleTourelle implements I_Modele_Tourelle{
+public class ModeleTourelle implements I_Modele_Tourelle
+{
+	private String name;
+	private String image;
 	private int cout;
 	private float vitesseAttaque;
 	private int degat;
 	private float zone;
 	private ArrayList<I_Modele_Tourelle> sesAmeliorations;
 	
-	public ModeleTourelle(String nomFicConf) {
-		this.cout = LecteurFichiers.getInt(nomFicConf, "Prix");
-		this.vitesseAttaque = LecteurFichiers.getFloat(nomFicConf, "Vitesse-d-attaque");
-		this.degat = LecteurFichiers.getInt(nomFicConf, "Dégat");
-		this.zone = LecteurFichiers.getFloat(nomFicConf, "Zone");
-		
-		//manque le truc d'arnaud
+	public ModeleTourelle(String name, String image, int cout, float vitesseAttque, int degat, float zone)
+	{
+		this.name = name;
+		this.image = image;
+		this.cout = cout;
+		this.vitesseAttaque = vitesseAttque;
+		this.degat = degat;
+		this.zone = zone;
 	}
 	
 	@Override
