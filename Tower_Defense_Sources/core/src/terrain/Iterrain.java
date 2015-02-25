@@ -1,14 +1,15 @@
 package terrain;
 
+import Tourelle.ModeleTourelle;
 import terrain.Coordonnees;
 
 
 public interface Iterrain {
 
 
-	public boolean ameliorerTour(/* amelioration ModeleTourelle,*/ Coordonnees<Float,Float> position  );
+	public boolean ameliorerTour(/* amelioration ModeleTourelle,*/ Coordonnees<Integer,Integer> position  );
 	
-	public boolean creerTour(/*tour ModeleTourelle,*/ Coordonnees<Float,Float> position);
+	public void creerTour(ModeleTourelle tour ,  Coordonnees<Integer,Integer> position);
 	
-	public boolean vendreTour( Coordonnees<Float,Float> position);
+	public boolean vendreTour( Coordonnees<Integer,Integer> position);
 }

@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import monstres.Monstre;
+import Tourelle.ModeleTourelle;
 import Tourelle.Tourelle;
 
 
@@ -60,9 +61,10 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 
 	
-	public boolean creerTour(/*ModeleTourelle tour , */Coordonnees position ) {
+	public void creerTour(ModeleTourelle tour , Coordonnees<Integer,Integer> position ) {
 		
-		return false;
+		Case caseTour = lstCase.get(position.getx(), position.gety());
+		caseTour.setSaTour(new Tourelle(tour, caseTour));
 	}
 
 	
@@ -233,16 +235,25 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	public int coutCaseNum(int indexOfMin) {
 		return getCase(ordonnee(indexOfMin), abscisse(indexOfMin)).cout();
 	}
-	/**
-	 * A faire : pour toutes les cases du chemin, met à jour les cases précédentes et suivantes
-	 */
+	
 	public void majCasesChemin(){
-		
-	}
+		for (int i=1;i <= chemin.size(); i++){			
+			if (i == 1){
+				chemin.get(i).setCaseCheminPrecedente(null);
+				chemin.get(i).setCaseCheminSuivante(chemin.get(i+1));
+			} else {
+				if (i == chemin.size()){
+					chemin.get(i).setCaseCheminPrecedente(chemin.get(i-1));
+					chemin.get(i).setCaseCheminSuivante(null);
+				} else {
+					chemin.get(i).setCaseCheminPrecedente(chemin.get(i-1));
+					chemin.get(i).setCaseCheminSuivante(chemin.get(i+1));
+				}
+			}
+		}
+	}	
 	
-	
-	/**
-	 * 
+	/** 
 	 * @author Louvetia
 	 * @param tour
 	 * @return Monstre dans la zone de la tour et le plus pres de la base
@@ -262,7 +273,5 @@ public class Terrain implements Iterrain, TerrainAlgo {
 		}
 		return monstreCibler;
 	}
-	
-	
 
 }
