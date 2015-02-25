@@ -1,5 +1,6 @@
 package menu;
 
-public class ZoneMenu {
-
+public class ZoneMenu
+{
+	
 }

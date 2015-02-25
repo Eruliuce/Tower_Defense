@@ -3,27 +3,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-<<<<<<< HEAD
 
-=======
-//<<<<<<< HEAD
->>>>>>> 9baf7a64eb8712caa0c669610639af935eac2ce7
-//import terrain2.CaseAlgo;
-//import terrain2.Coordonnees;
-
-
-<<<<<<< HEAD
 import Tourelle.Tourelle;
 import monstres.Monstre;
 
 
-=======
-//=======
-import Tourelle.Tourelle;
-import monstres.Monstre;
-//>>>>>>> cff0fb5887195671ad315c7ed3db71c8442bae9f
->>>>>>> 9baf7a64eb8712caa0c669610639af935eac2ce7
-public class Case implements CaseAlgo{
+public class Case implements CaseAlgo
+{
 
 	private Coordonnees<Integer,Integer> position;	
 	private Collection<Monstre> sesMonstres;
