@@ -61,7 +61,7 @@ public class Monstre extends MonstreAbstrait {
 	 * @return booleen : oui/non
 	 */
 	private boolean checkInvisible(Tourelle tour) {
-		return !invisible || tour.canSeeInvisible();
+		return !invisible || saCase.isInvisibleAdecouvert();
 	}
 	/**
 	 * vérifie si la tour peut attaquer vis à vis du paramètre volant/terrestre du monstre
