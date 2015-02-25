@@ -1,12 +1,14 @@
 package terrain;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 //<<<<<<< HEAD
 
 //import terrain2.CaseAlgo;
 //import terrain2.Coordonnees;
+
 
 
 
@@ -17,6 +19,9 @@ public class Case implements CaseAlgo
 {
 
 	private Coordonnees<Integer,Integer> position;	
+	public Coordonnees<Integer, Integer> getPosition() {
+		return position;
+	}
 	private Collection<Monstre> sesMonstres;
 	private boolean traversable=true;
 	private Case caseCheminSuivante;
@@ -103,8 +108,10 @@ public class Case implements CaseAlgo
 	 * @param tour
 	 * @return monstre : le monstre qui sera ciblé par la tour
 	 * @author BlackNichols
+	 * @deprecated Cette fonction est valble dans le cas de "grosses cases" que le monstres doit parcourir. On a fait 
+	 * autre chose au final
 	 */
-	public Monstre monstreACibler(Tourelle tour){
+	public Monstre monstreACibler1(Tourelle tour){
 		int ymax = 0, xmax = 0, modifX = 0, modifY = 0;
 		if(caseCheminPrecedente != null){
 			if(position.getx()>caseCheminPrecedente.position.getx()){
@@ -157,18 +164,30 @@ public class Case implements CaseAlgo
  * @param modifY -1, 0 ou 1
  * @return le monstre à cibler
  * @author un type qui n'assume pas
+ * @deprecated 
  */
-private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle tour){
-	Monstre monstreCible = null;
-	for(Monstre monstre : sesMonstres){
-		if(monstre.attaquable(tour) && (monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
-			monstreCible = monstre;
-			xmax = monstre.getPosition().getx();
-			ymax = monstre.getPosition().gety();
+	private Monstre triMonstreSale(int xmax,int modifX,int ymax,int modifY, Tourelle tour){
+		Monstre monstreCible = null;
+		for(Monstre monstre : sesMonstres){
+			if(monstre.attaquable(tour) && (monstre.getPosition().getx() * modifX >= xmax * modifX) && (monstre.getPosition().gety() * modifY >= ymax * modifY)){
+				monstreCible = monstre;
+				xmax = monstre.getPosition().getx();
+				ymax = monstre.getPosition().gety();
+			}
 		}
+		return monstreCible;
 	}
-	return monstreCible;
-}
+
+	public Monstre monstreACibler(Tourelle tour){
+		boolean monstreTrouve = false;
+		Iterator<Monstre> iterator = sesMonstres.iterator();
+		while (!monstreTrouve && iterator.hasNext()){
+			Monstre monstre;
+			if( (monstre = sesMonstres.iterator().next()).attaquable(tour))
+				return monstre;
+		}
+		return null;
+	}
 	
 	protected void setCaseCheminSuivante(Case caseCheminSuivante) {
 		this.caseCheminSuivante = caseCheminSuivante;

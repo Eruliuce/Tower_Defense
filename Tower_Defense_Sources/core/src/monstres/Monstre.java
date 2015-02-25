@@ -75,7 +75,13 @@ public class Monstre extends MonstreAbstrait {
 
 	@Override
 	public void deplacer() {
-		// TODO Auto-generated method stub
+		int deplacementRestant = vitesse;
+		while (deplacementRestant > 0){
+			Case caseSuivante = saCase.getCaseCheminSuivante();
+			saCase.retirerMonstre(this);
+			caseSuivante.ajoutMonstre(this);
+			position =	caseSuivante.getpos();
+		}
 		
 	}
 
