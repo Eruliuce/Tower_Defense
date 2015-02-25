@@ -3,12 +3,12 @@ package terrain;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 
 import exceptions.CaseNonTrouveeException;
 import monstres.Monstre;
+import Outils.Coordonnees;
 import Outils.GestionChemin;
 import Outils.GestionCheminDijkstra;
 import Tourelle.ModeleTourelle;
@@ -59,9 +59,8 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 	
 	
-	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees position  ) {
-		return false;
-		
+	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees<Integer,Integer> position  ) {
+
 		return false;
 	}
 

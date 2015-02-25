@@ -31,6 +31,7 @@ public class WorldRenderer {
     /** Textures **/
     Texture blockTexture;
     Texture monsterTexture;
+    Texture towerTexture;
     
     /** Constructeur **/
     public WorldRenderer(World world) {
@@ -50,13 +51,13 @@ public class WorldRenderer {
         this.height = h;
         ppuX = (float)width / world.LARGEUR;
         ppuY = (float)height / world.HAUTEUR;
-        System.out.println(ppuX + " " + ppuY);
     }
     
     /** Charge les textures en mémoire **/
     private void loadTextures() {
     	blockTexture = new Texture(Gdx.files.internal("images/grass.png"));
     	monsterTexture = new Texture(Gdx.files.internal("images/monster.png"));
+    	towerTexture = new Texture(Gdx.files.internal("images/tourelle.png"));
     }
  
     
@@ -66,15 +67,18 @@ public class WorldRenderer {
         shapeRenderer.begin(ShapeType.Filled);
             drawTerrain();
             drawMonstres();
-            //drawTourelles();
+            drawTourelles();
         shapeRenderer.end();
         spriteBatch.end();
         //deplacerMonstres();
     }
 	private void drawTourelles() {
-    	shapeRenderer.setColor(Color.RED);
 		for(Tourelle tourelle : world.mesTourelles){
-			shapeRenderer.rect(tourelle.getSaCase().getpos().getx(),tourelle.getSaCase().getpos().gety(),2, 2);
+			spriteBatch.draw(towerTexture,
+        			tourelle.getSaCase().getpos().getx()*ppuX,
+        			tourelle.getSaCase().getpos().gety()*ppuY,
+        			world.TAILLECASE*ppuX,
+        			world.TAILLECASE*ppuY);			
 		}
 	}
 
