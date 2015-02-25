@@ -1,12 +1,12 @@
 package terrain;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import Outils.Coordonnees;
 import Tourelle.Tourelle;
 import monstres.Monstre;
 
-public class Case implements CaseAlgo
+public class Case
 {
 
 	private Coordonnees<Integer,Integer> position;	

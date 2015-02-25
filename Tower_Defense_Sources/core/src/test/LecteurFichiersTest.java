@@ -2,7 +2,6 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
 
 import monstres.ModeleMonstre;

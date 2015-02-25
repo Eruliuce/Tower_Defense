@@ -1,7 +1,7 @@
 package monstres;
 
 import terrain.Case;
-import terrain.Coordonnees;
+import Outils.Coordonnees;
 import Tourelle.Tourelle;
 
 public class Monstre extends MonstreAbstrait {
