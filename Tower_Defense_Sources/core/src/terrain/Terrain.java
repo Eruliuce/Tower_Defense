@@ -1,5 +1,6 @@
 package terrain;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -8,12 +9,9 @@ import java.util.List;
 
 import exceptions.CaseNonTrouveeException;
 import monstres.Monstre;
-//<<<<<<< HEAD
 import Outils.GestionChemin;
 import Outils.GestionCheminDijkstra;
-//=======
 import Tourelle.ModeleTourelle;
-//>>>>>>> bfb6dcc9c075f5a622e2e4713ab6717a7b241cb4
 import Tourelle.Tourelle;
 
 
@@ -23,24 +21,19 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	private Array2d <Case> lstCase;
 	private int hauteur;
 	private int largeur;
+	private Point posSpawn;
+	private Point posBase;
 	private int numSpawn;
 	private int numBase;
 	private List<Case> chemin; 
-	
-	
+
 	private void initTerrain(int hauteur,int largeur){
 		
 		for (int i=0;i<hauteur;i++){
 			lstCase.addRow(largeur);
-			
-			
 			for (int j=0;j<largeur;j++){
-				
-				//System.out.println(i);
-				//System.out.println(j);
 				lstCase.add(i,j, new Case(i,j));
 				if(i==2&&j==2) lstCase.get(i, j).settraversable(t);
-				
 			}
 		}
 		
@@ -50,11 +43,13 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	 * @param hauteur (vertical)
 	 * @param largeur (horizontal)
 	 */
-	public Terrain(int hauteur ,int largeur, int numSpawn, int numBase) {
+	public Terrain(int hauteur ,int largeur, Point posSpawn, Point posBase) {
 		this.hauteur = hauteur;
 		this.largeur = largeur;
 		lstCase=new Array2d<Case>(hauteur);
 		initTerrain(largeur,hauteur);
+		this.posBase = posBase;
+		this.posSpawn = posSpawn;
 		this.numBase = numBase;
 		this.numSpawn = numSpawn;
 		chemin = new LinkedList<Case>();
@@ -65,6 +60,7 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	
 	
 	public boolean ameliorerTour(/*ModeleTourelle amelioration ,*/Coordonnees position  ) {
+		return false;
 		
 		return false;
 	}
@@ -85,30 +81,17 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	public Case getCase(int ligne, int colonne){
 		return lstCase.get(ligne, colonne);
 	}
+
 	
-	
-	public static void main(String[] args){
-	//Array2d<Case>	lstCase=new Array2d<Case>();
-//	lstCase.addRow();
-//	lstCase.add(0, 0, new Case(0,0));
-//	lstCase.addRow();
-//	lstCase.add(1,0, new Case(0,0));
-		Terrain t= new Terrain(4,4,0,0);
-		
-		
-		
+	public Point getPosBase() {
+
+		return posBase;
 	}
 
 	
-	public int getNumBase() {
-
-		return numBase;
-	}
-
+	public Point getPosSpawn() {
 	
-	public int getNumSpawn() {
-	
-		return numSpawn;
+		return posSpawn;
 	}
 
 	
@@ -293,6 +276,16 @@ public class Terrain implements Iterrain, TerrainAlgo {
 	}
 	private Case getCase(int numCase) {
 		return getCase(ordonnee(numCase), abscisse(numCase));
+	}
+	@Override
+	public int getNumBase() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getNumSpawn() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
