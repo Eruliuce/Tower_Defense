@@ -1,7 +1,6 @@
 package Outils;
 import java.util.Collection;
 
-import terrain.CaseAlgo;
 import exceptions.CaseNonTrouveeException;
 
 
