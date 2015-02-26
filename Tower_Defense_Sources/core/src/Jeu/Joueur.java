@@ -4,7 +4,7 @@ import Outils.LecteurFichiers;
 
 public class Joueur
 {
-	private int nbVies;
+	private static int nbVies;
 	private String nom;
 	private int or;
 	
@@ -15,7 +15,7 @@ public class Joueur
 		or = LecteurFichiers.getInt("FichiersConf\\Constantes.conf", "orBaseJoueur");
 	}
 	
-	public void perdreVies(int nb)
+	public static void perdreVies(int nb)
 	{
 		nbVies = nbVies - nb > 0 ? nbVies - nb : 0;
 	}
