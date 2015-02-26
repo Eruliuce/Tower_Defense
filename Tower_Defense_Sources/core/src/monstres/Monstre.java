@@ -24,7 +24,7 @@ public class Monstre extends MonstreAbstrait {
 	public Monstre(int x, int y){
 		position = new Coordonnees<Integer,Integer>(x,y);
 	}
-	Monstre(ModeleMonstre MM) {
+	public Monstre(ModeleMonstre MM) {
 		name = MM.getName();
 		pv = MM.getPv();
 		vitesse = MM.getVitesse();
@@ -34,6 +34,18 @@ public class Monstre extends MonstreAbstrait {
 		cout = MM.getCout();
 		invisible = MM.getInvisible();
 		volant = MM.getVolant();
+	}
+	public Monstre(int x, int y, ModeleMonstre mm){
+		position = new Coordonnees<Integer,Integer>(x,y);
+		name = mm.getName();
+		pv = mm.getPv();
+		vitesse = mm.getVitesse();
+		image = mm.getImage();
+		attaque = mm.getAttaque();
+		recompense = mm.getRecompense();
+		cout = mm.getCout();
+		invisible = mm.getInvisible();
+		volant = mm.getVolant();
 	}
 	
 	public void mourir(){

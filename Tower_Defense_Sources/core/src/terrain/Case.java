@@ -20,8 +20,6 @@ public class Case {
 	public static final int TAILLECASE = 32;
 	private boolean invisibleAdecouvert;
 	private Tourelle saTour;
-	
-	
 		{
 			sesMonstres = new LinkedList<Monstre>();
 			invisibleAdecouvert = false;
