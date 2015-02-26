@@ -148,7 +148,7 @@ public class LecteurFichiers
 			try
 			{
 				String line, name = "", image = "";
-				int pv = -1, vitesse = -1, attaque = -1, recompense = -1, cout = -1;
+				int pv = -1, vitesse = -1, attaque = -1, recompense = -1, cout = -1, portee = -1;
 				boolean invisible = false, volant = false;
 				while((line = buff.readLine()) != null)
 				{
@@ -166,6 +166,8 @@ public class LecteurFichiers
 							vitesse = extractInt(line, "vitesse");
 						else if(line.contains("image"))
 							image = extractString(line, "image");
+						else if(line.contains("portee"))
+							image = extractString(line, "portee");
 						else if(line.contains("attaque"))
 							attaque = extractInt(line, "attaque");
 						else if(line.contains("recompense"))
@@ -206,14 +208,14 @@ public class LecteurFichiers
 			try
 			{
 				String line, name = "", image = "";
-				int vitesseAttaque = -1, degat = -1, cout = -1;
+				int vitesseAttaque = -1, degat = -1, cout = -1, portee = -1;
 				boolean seeInvisible = false, antiAerien = false;
 				float zone = -1.f;
 				while((line = buff.readLine()) != null)
 				{
 					if(line.equals("/"))
 					{
-						liste.add(new ModeleTourelle(name, image, cout, vitesseAttaque, degat, zone, seeInvisible, antiAerien));
+						liste.add(new ModeleTourelle(name, image, portee, cout, vitesseAttaque, degat, zone, seeInvisible, antiAerien));
 					}
 					else
 					{
@@ -223,6 +225,8 @@ public class LecteurFichiers
 							vitesseAttaque = extractInt(line, "vitesseattaque");
 						else if(line.contains("image"))
 							image = extractString(line, "image");
+						else if(line.contains("portee"))
+							image = extractString(line, "portee");
 						else if(line.contains("cout"))
 							cout = extractInt(line, "cout");
 						else if(line.contains("degat"))

@@ -9,6 +9,7 @@ public class ModeleTourelle implements I_Modele_Tourelle
 {
 	private String name;
 	private String image;
+	private int portee;
 	private int cout;
 	private float vitesseAttaque;
 	private int degat;
@@ -18,7 +19,7 @@ public class ModeleTourelle implements I_Modele_Tourelle
 	private boolean antiAerien;
 	
 
-	public ModeleTourelle(String name, String image, int cout, float vitesseAttque, int degat, float zone, boolean seeInvisible, boolean antiAerien)
+	public ModeleTourelle(String name, String image,int portee, int cout, float vitesseAttque, int degat, float zone, boolean seeInvisible, boolean antiAerien)
 	{
 		this.name = name;
 		this.image = image;
@@ -62,6 +63,10 @@ public class ModeleTourelle implements I_Modele_Tourelle
 
 	public int getDegat() {
 		return degat;
+	}
+	
+	public int getPortee(){
+		return this.portee;
 	}
 	
 	public float getZone(){

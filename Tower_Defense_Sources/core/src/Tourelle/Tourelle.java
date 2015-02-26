@@ -7,13 +7,47 @@ import ZoneAttaqueTourelle.ZoneAttaqueTourelle;
 import terrain.Case;
 
 public class Tourelle extends Decorateur_EffetTourelle {
-	public final static int PRIXTOURELLE = 100;
 	
+	public static final int PRIXTOURELLE = 100;
 	private int cout;
 	private float vitesseAttaque;
 	private int degat;
 	private Collection<I_Modele_Tourelle> sesAmeliorations;
 	private boolean antiAerien;
+	private boolean seeInvisble;
+	private Case saCase;
+	private int portee;
+	
+	
+	public Tourelle (ModeleTourelle modele, Case saCase){
+		this.cout = modele.getCout();
+		this.vitesseAttaque = modele.getVitesseAttaque();
+		this.portee = modele.getPortee();
+		this.sesAmeliorations = modele.ameliorations();
+		this.degat = modele.getDegat();
+		this.saCase = saCase;
+		this.seeInvisble = modele.isSeeInvisible();
+		if (modele.isAntiAerien())
+		{
+			this.sonEffetTourelle = new AntiAerien_Tourelle(this);
+			if(modele.isSeeInvisible()){
+				this.sonEffetTourelle.setSonDecorateur(new VisionInvisible_Tourelle(sonEffetTourelle));
+			}
+		}
+		else{
+			if(modele.isSeeInvisible()) {
+				this.sonEffetTourelle = new VisionInvisible_Tourelle(this);
+			}
+		}
+		
+		
+		if (seeInvisble){
+			this.revelerCaseDansLaZone(saCase, true);
+		}
+
+	}
+	
+	
 	public int getCout() {
 		return cout;
 	}
@@ -70,37 +104,9 @@ public class Tourelle extends Decorateur_EffetTourelle {
 		this.antiAerien = antiAerien;
 	}
 
-	private boolean seeInvisble;
-	private Case saCase;
-	private int portee;
 	
-	public Tourelle (ModeleTourelle modele, Case saCase){
-		this.cout = modele.getCout();
-		this.vitesseAttaque = modele.getVitesseAttaque();
-		this.sesAmeliorations = modele.ameliorations();
-		this.degat = modele.getDegat();
-		this.saCase = saCase;
-		this.seeInvisble = modele.isSeeInvisible();
-		
-		if (modele.isAntiAerien())
-		{
-			this.sonEffetTourelle = new AntiAerien_Tourelle(this);
-			if(modele.isSeeInvisible()){
-				this.sonEffetTourelle.setSonDecorateur(new VisionInvisible_Tourelle(sonEffetTourelle));
-			}
-		}
-		else{
-			if(modele.isSeeInvisible()) {
-				this.sonEffetTourelle = new VisionInvisible_Tourelle(this);
-			}
-		}
-		
-		
-		if (seeInvisble){
-			this.revelerCaseDansLaZone(saCase, true);
-		}
-
-	}
+	
+	
 	
 	public int getDegat() {
 		return degat;

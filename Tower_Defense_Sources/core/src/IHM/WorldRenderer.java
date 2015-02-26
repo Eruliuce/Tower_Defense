@@ -102,7 +102,19 @@ public class WorldRenderer {
         }
     }
     
-    public void inputHandler(){
+    private void tirerSurMonstre() {
+		for(Tourelle tourelle : world.mesTourelles){
+			for(Monstre monstre : world.mesMonstres){
+				Case c = new Case(monstre.getPosition());
+				if (c.distance(tourelle.getSaCase()) < 3){
+					System.out.println("Attaque !");
+				}
+			}
+		}
+		
+	}
+
+	public void inputHandler(){
 		// Quand on clique sur la fenetre, on rajoute un cercle à notre fenetre
 		boolean leftPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 		if ( leftPressed ){
@@ -127,21 +139,26 @@ public class WorldRenderer {
 			Point p = new Point(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
 			// Pour éviter d'avoir deux fois le même cercle à dessiner
 			boolean placerTourelle = true;
-			for(Tourelle tourelle : world.mesTourelles){
-				if((int)tourelle.getSaCase().getpos().getx()/ppuX == (int)p.x/ppuX  &&
-				   (int)tourelle.getSaCase().getpos().gety()/ppuY == (int)p.y/ ppuY){
-					placerTourelle = false;
+			if(world.mesTourelles.size() > 0){
+				for(Tourelle tourelle : world.mesTourelles){
+					System.out.println((int)(p.x/ppuX));
+					if((int)tourelle.getSaCase().getpos().getx() == (int)(p.x/ppuX)  &&
+					   (int)tourelle.getSaCase().getpos().gety() == (int)(p.y/ ppuY)){
+						placerTourelle = false;
+						System.out.println("a");
+					}
 				}
 			}
-			if(!(world.monJoueur.getOr() > Tourelle.PRIXTOURELLE)){
-				placerTourelle = false;
-			}
-			if(placerTourelle){
-				p.x /= ppuX;
-				p.y /= ppuY;
-				world.mesTourelles.add(new Tourelle(world.listeModeleTourelles.get(0), new Case(p.x, p.y)));
-				world.monJoueur.setOr(world.monJoueur.getOr() - Tourelle.PRIXTOURELLE);
-			}
+				if(!(world.monJoueur.getOr() > Tourelle.PRIXTOURELLE)){
+					placerTourelle = false;
+				}
+				if(placerTourelle){
+					p.x /= ppuX;
+					p.y /= ppuY;
+					world.mesTourelles.add(new Tourelle(world.listeModeleTourelles.get(0), new Case(p.x, p.y)));
+					world.monJoueur.setOr(world.monJoueur.getOr() - Tourelle.PRIXTOURELLE);
+				}
+			
 		}
 	}
     
