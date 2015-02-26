@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import terrain.Terrain;
+import listeners.EcouteurInputs;
 import monstres.Monstre;
 import Tourelle.Tourelle;
 
@@ -19,7 +20,8 @@ public class World {
 	public ArrayList<Monstre> mesMonstres;
 	public ArrayList<Tourelle> mesTourelles;
 	public Terrain monTerrain;
-	
+	private EcouteurInputs ecouteurInputs;
+	private WorldRenderer worldRenderer;
 	
 	public World() {
         createDemoWorld();
@@ -32,6 +34,22 @@ public class World {
 			mesMonstres.add(new Monstre(i,i));		 	 
 		}
 		mesTourelles = new ArrayList<Tourelle>();
+		
+		ecouteurInputs = new EcouteurInputs(this);
+	}
+
+	public Terrain getTerrain() {
+		return monTerrain;
+	}
+
+	public void setWorldRenderer(WorldRenderer worldRenderer)
+	{
+		this.worldRenderer = worldRenderer;
+	}
+	
+	public WorldRenderer getWorldRenderer()
+	{
+		return worldRenderer;
 	}
 	
 }

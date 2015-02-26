@@ -21,7 +21,16 @@ public class WorldRenderer {
     private float ppuX; // pixels par unité pour X
     private float ppuY; // pixels par unité pour Y
     
-    /**
+    public float getPpuX() {
+		return ppuX;
+	}
+
+	public float getPpuY() {
+		return ppuY;
+	}
+
+
+	/**
      * ShapeRenderer permet de dessiner facilement les
      * formes de base
      * Sera utilisé pour des fins de débogage
@@ -36,6 +45,7 @@ public class WorldRenderer {
     /** Constructeur **/
     public WorldRenderer(World world) {
         this.world = world;
+        this.world.setWorldRenderer(this);
         this.cam = new OrthographicCamera(world.LARGEUR, world.HAUTEUR);
         this.cam.position.set(world.HAUTEUR, world.LARGEUR,0);
         this.cam.update();
