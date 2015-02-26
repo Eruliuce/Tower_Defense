@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 public class WorldRenderer {
 	
@@ -18,6 +20,7 @@ public class WorldRenderer {
     private SpriteBatch spriteBatch;
     private int width;
     private int height;
+    public float delay;
     private float ppuX; // pixels par unité pour X
     private float ppuY; // pixels par unité pour Y
     
@@ -43,6 +46,7 @@ public class WorldRenderer {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setColor(Color.BLUE);
         loadTextures();
+        delay = 0;
     }
     
     /** DPermet de faire un resize sur l'écran **/
@@ -70,8 +74,22 @@ public class WorldRenderer {
             drawTourelles();
         shapeRenderer.end();
         spriteBatch.end();
-        //deplacerMonstres();
+        
+        // On bouge le monstre chaque seconde
+        delay += Gdx.graphics.getDeltaTime();
+        if(delay >= 1.0){
+        	deplacerMonstresTemp();
+        	delay = 0;
+        }
     }
+    
+	protected void deplacerMonstresTemp() {
+		for(Monstre monstre : world.mesMonstres){
+			monstre.getPosition().setx((int) (monstre.getPosition().getx() + world.VITESSEMONSTRE));
+		}
+		
+	}
+
 	private void drawTourelles() {
 		for(Tourelle tourelle : world.mesTourelles){
 			spriteBatch.draw(towerTexture,
@@ -103,5 +121,11 @@ public class WorldRenderer {
         			world.TAILLEMONSTRE*ppuX,
         			world.TAILLEMONSTRE*ppuY);	
 		}	
+	}
+	
+	private void deplacerMonstres(){
+		for(Monstre monstre : world.mesMonstres){
+			monstre.deplacer();
+		}
 	}
 }
