@@ -7,6 +7,8 @@ import ZoneAttaqueTourelle.ZoneAttaqueTourelle;
 import terrain.Case;
 
 public class Tourelle extends Decorateur_EffetTourelle {
+	public final static int PRIXTOURELLE = 100;
+	
 	private int cout;
 	private float vitesseAttaque;
 	private int degat;

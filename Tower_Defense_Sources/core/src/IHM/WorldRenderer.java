@@ -1,8 +1,13 @@
 package IHM;
+import java.awt.Point;
+import java.io.IOException;
+
+import terrain.Case;
 import monstres.Monstre;
 import Tourelle.Tourelle;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -75,6 +80,8 @@ public class WorldRenderer {
         shapeRenderer.end();
         spriteBatch.end();
         
+        inputHandler();
+        
         // On bouge le monstre chaque seconde
         delay += Gdx.graphics.getDeltaTime();
         if(delay >= 1.0){
@@ -82,6 +89,49 @@ public class WorldRenderer {
         	delay = 0;
         }
     }
+    
+    public void inputHandler(){
+		// Quand on clique sur la fenetre, on rajoute un cercle à notre fenetre
+		boolean leftPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+		if ( leftPressed ){
+			Point p = new Point(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+			// Pour éviter d'avoir deux fois le même cercle à dessiner
+			boolean placerMonstre = true;
+			for(Monstre monstre : world.mesMonstres){
+				if((int)monstre.getPosition().getx()/ppuX == (int)p.x/ppuX  &&
+				   (int)monstre.getPosition().gety()/ppuY == (int)p.y/ ppuY){
+					placerMonstre = false;
+				}
+			}
+			if(placerMonstre){
+				p.x /= ppuX;
+				p.y /= ppuY;
+				world.mesMonstres.add(new Monstre(p.x, p.y, world.listeModeleMonstres.get(0)));
+				world.monJoueur.setOr(world.monJoueur.getOr() - Monstre.PRIXMONSTRE);
+			}
+		}
+		boolean rightPressed = Gdx.input.isButtonPressed(Input.Buttons.RIGHT);
+		if ( rightPressed ){
+			Point p = new Point(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+			// Pour éviter d'avoir deux fois le même cercle à dessiner
+			boolean placerTourelle = true;
+			for(Tourelle tourelle : world.mesTourelles){
+				if((int)tourelle.getSaCase().getpos().getx()/ppuX == (int)p.x/ppuX  &&
+				   (int)tourelle.getSaCase().getpos().gety()/ppuY == (int)p.y/ ppuY){
+					placerTourelle = false;
+				}
+			}
+			if(!(world.monJoueur.getOr() > Tourelle.PRIXTOURELLE)){
+				placerTourelle = false;
+			}
+			if(placerTourelle){
+				p.x /= ppuX;
+				p.y /= ppuY;
+				world.mesTourelles.add(new Tourelle(world.listeModeleTourelles.get(0), new Case(p.x, p.y)));
+				world.monJoueur.setOr(world.monJoueur.getOr() - Tourelle.PRIXTOURELLE);
+			}
+		}
+	}
     
 	protected void deplacerMonstresTemp() {
 		for(Monstre monstre : world.mesMonstres){

@@ -6,6 +6,8 @@ import Outils.Coordonnees;
 import Tourelle.Tourelle;
 
 public class Monstre extends MonstreAbstrait {
+	public final static int PRIXMONSTRE = 30;
+	
 	private String name;
 	private Integer pv;
 	private Integer vitesse;
