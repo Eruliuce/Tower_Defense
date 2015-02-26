@@ -1,4 +1,5 @@
 package IHM;
+import listeners.EcouteurInputs;
 import monstres.Monstre;
 import Tourelle.Tourelle;
 
@@ -20,6 +21,7 @@ public class WorldRenderer {
     private int height;
     private float ppuX; // pixels par unité pour X
     private float ppuY; // pixels par unité pour Y
+    private EcouteurInputs ecouteurInputs;
     
     public float getPpuX() {
 		return ppuX;
@@ -45,7 +47,7 @@ public class WorldRenderer {
     /** Constructeur **/
     public WorldRenderer(World world) {
         this.world = world;
-        this.world.setWorldRenderer(this);
+        ecouteurInputs = new EcouteurInputs(this);
         this.cam = new OrthographicCamera(world.LARGEUR, world.HAUTEUR);
         this.cam.position.set(world.HAUTEUR, world.LARGEUR,0);
         this.cam.update();
@@ -113,5 +115,10 @@ public class WorldRenderer {
         			world.TAILLEMONSTRE*ppuX,
         			world.TAILLEMONSTRE*ppuY);	
 		}	
+	}
+
+	public World getWorld()
+	{
+		return world;
 	}
 }

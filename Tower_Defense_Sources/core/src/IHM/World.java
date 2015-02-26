@@ -34,22 +34,9 @@ public class World {
 			mesMonstres.add(new Monstre(i,i));		 	 
 		}
 		mesTourelles = new ArrayList<Tourelle>();
-		
-		ecouteurInputs = new EcouteurInputs(this);
 	}
 
 	public Terrain getTerrain() {
 		return monTerrain;
 	}
-
-	public void setWorldRenderer(WorldRenderer worldRenderer)
-	{
-		this.worldRenderer = worldRenderer;
-	}
-	
-	public WorldRenderer getWorldRenderer()
-	{
-		return worldRenderer;
-	}
-	
 }
