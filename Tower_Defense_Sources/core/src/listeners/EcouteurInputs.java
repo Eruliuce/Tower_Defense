@@ -1,10 +1,19 @@
 package listeners;
 
+import IHM.*;
+
 import com.badlogic.gdx.InputProcessor;
 
 public class EcouteurInputs implements InputProcessor
 {
+	WorldRenderer worldRenderer;
 	
+	
+	public EcouteurInputs(WorldRenderer worldRenderer)
+	{
+		this.worldRenderer = worldRenderer;
+	}
+
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
@@ -26,7 +35,10 @@ public class EcouteurInputs implements InputProcessor
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
-		
+		System.out.println((int)(screenX / (worldRenderer.getPpuX())));
+		System.out.println((int)(screenY / (worldRenderer.getPpuY())));
+		if(worldRenderer.getWorld().getTerrain().getCase((int)(screenX / worldRenderer.getPpuX()), (int)(screenY / worldRenderer.getPpuY())).getSaTour() != null);
+			System.out.println("test");
 		return false;
 	}
 

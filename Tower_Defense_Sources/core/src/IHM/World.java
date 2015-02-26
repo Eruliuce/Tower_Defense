@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import terrain.Terrain;
+import listeners.EcouteurInputs;
 import monstres.ModeleMonstre;
 import monstres.Monstre;
 import Tourelle.ModeleTourelle;
@@ -26,8 +27,6 @@ public class World {
 	ArrayList<ModeleMonstre> listeModeleMonstres;
 	ArrayList<ModeleTourelle> listeModeleTourelles;
 	public Joueur monJoueur;
-
-	
 	
 	public World() {
         createDemoWorld();
@@ -39,10 +38,10 @@ public class World {
 		listeModeleTourelles = LecteurFichiers.getListeModelesTourelles("..\\core\\FichiersConf\\Tourelles.conf");
 		monTerrain = new Terrain(HAUTEUR, LARGEUR, new Point(1,1),new Point(2,2));
 		mesMonstres = new ArrayList<Monstre>();
-		for(int i = 5 ; i < 10; i++){
-			mesMonstres.add(new Monstre(i,i, listeModeleMonstres.get(0)));
-		}
 		mesTourelles = new ArrayList<Tourelle>();
 	}
-	
+
+	public Terrain getTerrain() {
+		return monTerrain;
+	}
 }
