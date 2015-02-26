@@ -3,7 +3,6 @@ import java.awt.Point;
 import java.io.IOException;
 
 import terrain.Case;
-import listeners.EcouteurInputs;
 import monstres.Monstre;
 import Tourelle.Tourelle;
 
@@ -29,7 +28,6 @@ public class WorldRenderer {
     public float delay;
     private float ppuX; // pixels par unité pour X
     private float ppuY; // pixels par unité pour Y
-    private EcouteurInputs ecouteurInputs;
     
     public float getPpuX() {
 		return ppuX;
@@ -97,7 +95,6 @@ public class WorldRenderer {
         delay += Gdx.graphics.getDeltaTime();
         if(delay >= 1.0){
         	deplacerMonstresTemp();
-        	tirerSurMonstre();
         	delay = 0;
         }
     }

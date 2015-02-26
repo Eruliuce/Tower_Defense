@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import terrain.Terrain;
-import listeners.EcouteurInputs;
 import monstres.ModeleMonstre;
 import monstres.Monstre;
 import Tourelle.ModeleTourelle;
