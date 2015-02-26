@@ -95,32 +95,41 @@ public class WorldRenderer {
         delay += Gdx.graphics.getDeltaTime();
         if(delay >= 1.0){
         	deplacerMonstresTemp();
+        	tirerSurMonstre();
+        	attaquerBase();
         	delay = 0;
         }
     }
     
-    private void tirerSurMonstre() {
-		for(Tourelle tourelle : world.mesTourelles){
-			for(Monstre monstre : world.mesMonstres){
-				Case c = new Case(monstre.getPosition());
-				if (c.distance(tourelle.getSaCase()) < 3){
-					System.out.println("Attaque !");
-				}
-			}
-		}
+    private void attaquerBase() {
+		// TODO Auto-generated method stub
 		
 	}
 
+	private void tirerSurMonstre() {
+    	for(int i = 0; i < world.mesTourelles.size(); i++){
+    		for(int j = 0; j < world.mesMonstres.size(); j++){
+    			Case c = new Case(world.mesMonstres.get(j).getPosition());
+    			if (c.distance(world.mesTourelles.get(i).getSaCase()) <= 4){
+    				world.mesMonstres.get(j).seFaireAttaquer(world.mesTourelles.get(i));
+    				world.verifierMort(world.mesMonstres.get(j));
+    			}
+    		}
+    	}		
+	}
+
+    
+    
 	public void inputHandler(){
 		// Quand on clique sur la fenetre, on rajoute un cercle à notre fenetre
 		boolean leftPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
 		if ( leftPressed ){
 			Point p = new Point(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-			// Pour éviter d'avoir deux fois le même cercle à dessiner
+			// Pour éviter d'avoir deux fois le même monstre sur une case
 			boolean placerMonstre = true;
 			for(Monstre monstre : world.mesMonstres){
-				if((int)monstre.getPosition().getx()/ppuX == (int)p.x/ppuX  &&
-				   (int)monstre.getPosition().gety()/ppuY == (int)p.y/ ppuY){
+				if((int)monstre.getPosition().getx() == (int)(p.x/ppuX) &&
+				   (int)monstre.getPosition().gety() == (int)(p.y/ ppuY)){
 					placerMonstre = false;
 				}
 			}
@@ -134,15 +143,13 @@ public class WorldRenderer {
 		boolean rightPressed = Gdx.input.isButtonPressed(Input.Buttons.RIGHT);
 		if ( rightPressed ){
 			Point p = new Point(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-			// Pour éviter d'avoir deux fois le même cercle à dessiner
+			// Pour éviter d'avoir deux fois la meme tour sur une case
 			boolean placerTourelle = true;
 			if(world.mesTourelles.size() > 0){
 				for(Tourelle tourelle : world.mesTourelles){
-					System.out.println((int)(p.x/ppuX));
 					if((int)tourelle.getSaCase().getpos().getx() == (int)(p.x/ppuX)  &&
 					   (int)tourelle.getSaCase().getpos().gety() == (int)(p.y/ ppuY)){
 						placerTourelle = false;
-						System.out.println("a");
 					}
 				}
 			}

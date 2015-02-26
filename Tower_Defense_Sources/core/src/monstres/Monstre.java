@@ -59,6 +59,12 @@ public class Monstre extends MonstreAbstrait {
 		}
 	}
 	
+	public Integer getPv() {
+		return pv;
+	}
+	public void setPv(Integer pv) {
+		this.pv = pv;
+	}
 	/**
 	 * vérifie si la tour peut attaquer le monstre
 	 * @author BlackNichols
@@ -107,7 +113,7 @@ public class Monstre extends MonstreAbstrait {
 	@Override
 	public void seFaireAttaquer(Tourelle tour) {
 		// TODO Auto-generated method stub
-		this.pv-=tour.getDegat();
+		this.pv+=tour.getDegat();
 		if (this.pv <= 0)
 		{
 			this.mourir();

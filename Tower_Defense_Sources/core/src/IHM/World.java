@@ -43,4 +43,11 @@ public class World {
 	public Terrain getTerrain() {
 		return monTerrain;
 	}
+
+	public void verifierMort(Monstre monstre) {
+		if (monstre.getPv() <= 0){
+			mesMonstres.remove(monstre);
+		}
+		
+	}
 }
